@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lukáš & Tereza — March 2027</title>
+  <meta name="description" content="Wedding invitation of Lukáš & Tereza — 13 March 2027, Uhřínov u Liberka, Orlické hory" />
+  <link rel="stylesheet" href="style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav id="navbar">
+    <div class="nav-inner">
+      <span class="nav-monogram">L&amp;T</span>
+      <ul class="nav-links">
+        <li><a href="#home">Home</a></li>
+        <li><a href="#schedule">Schedule</a></li>
+        <li><a href="#location">Location</a></li>
+        <li><a href="#rsvp">RSVP</a></li>
+      </ul>
+      <button class="dark-toggle" id="darkToggle" aria-label="Toggle dark mode">
+        <span class="toggle-icon sun">☀</span>
+        <span class="toggle-icon moon">☽</span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section id="home" class="hero">
+    <div class="hero-bg">
+      <div class="hero-photo-wrap">
+        <div class="hero-photo-placeholder">
+          <div class="photo-inner">
+            <svg viewBox="0 0 200 240" fill="none" xmlns="http://www.w3.org/2000/svg" class="couple-svg">
+              <!-- Bride silhouette -->
+              <ellipse cx="90" cy="55" rx="18" ry="20" fill="currentColor" opacity=".18"/>
+              <path d="M72 75 Q90 95 108 75 L115 200 H65 Z" fill="currentColor" opacity=".12"/>
+              <path d="M65 200 Q75 180 90 175 Q105 180 115 200" fill="currentColor" opacity=".15"/>
+              <!-- Groom silhouette -->
+              <ellipse cx="135" cy="52" rx="16" ry="18" fill="currentColor" opacity=".2"/>
+              <path d="M119 70 Q135 88 151 70 L157 200 H113 Z" fill="currentColor" opacity=".15"/>
+            </svg>
+            <p class="placeholder-text">Your Photo Here</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="hero-content">
+      <p class="hero-invite-text">Together with their families</p>
+      <h1 class="hero-names">
+        <span class="name-left">Lukáš</span>
+        <span class="ampersand">&amp;</span>
+        <span class="name-right">Pája</span>
+      </h1>
+      <p class="hero-invite-text">invite you to celebrate their wedding</p>
+      <div class="hero-date-block">
+        <span class="date-line">13 March 2027</span>
+        <span class="separator-dot">·</span>
+        <span class="date-line">Uhřínov u Liberka</span>
+        <span class="separator-dot">·</span>
+        <span class="date-line">Orlické hory</span>
+      </div>
+      <div class="hero-scroll-hint">
+        <span>Scroll</span>
+        <div class="scroll-line"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- COUNTDOWN -->
+  <section class="countdown-section">
+    <p class="section-eyebrow">Days Until We Say I Do</p>
+    <div class="countdown" id="countdown">
+      <div class="cd-unit"><span class="cd-num" id="cd-days">000</span><span class="cd-label">Days</span></div>
+      <div class="cd-sep">:</div>
+      <div class="cd-unit"><span class="cd-num" id="cd-hours">00</span><span class="cd-label">Hours</span></div>
+      <div class="cd-sep">:</div>
+      <div class="cd-unit"><span class="cd-num" id="cd-mins">00</span><span class="cd-label">Minutes</span></div>
+      <div class="cd-sep">:</div>
+      <div class="cd-unit"><span class="cd-num" id="cd-secs">00</span><span class="cd-label">Seconds</span></div>
+    </div>
+    <a class="btn btn-outline" id="calBtn" href="#" target="_blank" rel="noopener">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+      Add to Google Calendar
+    </a>
+  </section>
+
+  <!-- ABOUT US -->
+  <section class="about-section" id="about">
+    <div class="section-wrap two-col">
+      <div class="about-text">
+        <p class="section-eyebrow">Our Story</p>
+        <h2 class="section-title">About Us</h2>
+        <p class="body-text">
+          We met on a rainy autumn afternoon and knew from the first moment that something extraordinary had begun. Over years of mountain hikes, shared meals and quiet evenings, our love grew into something we want to celebrate with the people closest to our hearts.
+        </p>
+        <p class="body-text">
+          We chose Uhřínov — a place where the Orlické hory mountains meet the sky — because it captures everything we love: wild nature, quiet beauty and a sense of wonder. We cannot wait to share this day with you.
+        </p>
+      </div>
+      <div class="about-ornament">
+        <div class="ornament-ring ring-1"></div>
+        <div class="ornament-ring ring-2"></div>
+        <div class="ornament-ring ring-3"></div>
+        <span class="ornament-year">2027</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- SCHEDULE -->
+  <section id="schedule" class="schedule-section">
+    <div class="section-wrap">
+      <p class="section-eyebrow">The Day</p>
+      <h2 class="section-title">Schedule</h2>
+      <div class="timeline">
+        <div class="timeline-item" data-aos>
+          <div class="tl-time">13:30</div>
+          <div class="tl-dot"></div>
+          <div class="tl-body">
+            <h3>Guest Arrival &amp; Welcome Drinks</h3>
+            <p>Arrive at the Uhřínov estate. Enjoy a glass of welcome prosecco while the mountains set the scene.</p>
+          </div>
+        </div>
+        <div class="timeline-item" data-aos>
+          <div class="tl-time">14:00</div>
+          <div class="tl-dot tl-dot--accent"></div>
+          <div class="tl-body">
+            <h3>Wedding Ceremony</h3>
+            <p>Exchange of vows, rings and promises — with the Orlické hory as our witness.</p>
+          </div>
+        </div>
+        <div class="timeline-item" data-aos>
+          <div class="tl-time">15:30</div>
+          <div class="tl-dot"></div>
+          <div class="tl-body">
+            <h3>Photographs &amp; Garden Hour</h3>
+            <p>Wander the estate grounds, sip cocktails and let the photographer capture candid moments.</p>
+          </div>
+        </div>
+        <div class="timeline-item" data-aos>
+          <div class="tl-time">17:00</div>
+          <div class="tl-dot tl-dot--accent"></div>
+          <div class="tl-body">
+            <h3>Wedding Dinner &amp; Party</h3>
+            <p>Dinner, speeches, dancing and celebration — we party into the Bohemian night.</p>
+          </div>
+        </div>
+        <div class="timeline-item" data-aos>
+          <div class="tl-time">Late</div>
+          <div class="tl-dot"></div>
+          <div class="tl-body">
+            <h3>Bonfire Farewell</h3>
+            <p>End the evening around the fire under a mountain sky full of stars.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- LOCATION -->
+  <section id="location" class="location-section">
+    <div class="section-wrap">
+      <p class="section-eyebrow">Where to Find Us</p>
+      <h2 class="section-title">Location</h2>
+      <p class="body-text center-text">
+        Uhřínov u Liberka, Orlické hory — a mountain village in the heart of East Bohemia.<br>
+        <strong>Uhřínov 12, 517 91 Deštné v Orlických horách, Czech Republic</strong>
+      </p>
+      <div class="map-wrap">
+        <iframe
+          title="Wedding venue location"
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d10352!2d16.398!3d50.308!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x470e87d4f5f5b8fd%3A0x400af0f66163a50!2zVWjFmcOtbm92LCBDemVjaCBSZXB1YmxpYw!5e0!3m2!1sen!2scz!4v1700000000000"
+          allowfullscreen=""
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade">
+        </iframe>
+      </div>
+      <div class="location-cards">
+        <div class="loc-card">
+          <div class="loc-icon">🚂</div>
+          <h4>By Train</h4>
+          <p>Train to Rokytnice v Orlických horách, then local bus or taxi (approx. 15 min).</p>
+        </div>
+        <div class="loc-card">
+          <div class="loc-icon">🚗</div>
+          <h4>By Car</h4>
+          <p>From Prague: ~2 hrs via D11 and Route 14 toward Deštné v Orlických horách.</p>
+        </div>
+        <div class="loc-card">
+          <div class="loc-icon">🏨</div>
+          <h4>Accommodation</h4>
+          <p>We have reserved rooms at nearby pension. Details in your personal invite.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- RSVP -->
+  <section id="rsvp" class="rsvp-section">
+    <div class="section-wrap rsvp-wrap">
+      <p class="section-eyebrow">Kindly Reply By 1 January 2027</p>
+      <h2 class="section-title">RSVP</h2>
+      <form class="rsvp-form" id="rsvpForm" novalidate>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="fname">Full Name *</label>
+            <input type="text" id="fname" name="name" placeholder="Your full name" required />
+          </div>
+          <div class="form-group">
+            <label for="email">Email *</label>
+            <input type="email" id="email" name="email" placeholder="your@email.com" required />
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="attending">Will you attend? *</label>
+            <select id="attending" name="attending" required>
+              <option value="" disabled selected>Please select…</option>
+              <option value="yes">Joyfully accepts!</option>
+              <option value="no">Regretfully declines</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="guests">Number of guests (incl. yourself)</label>
+            <input type="number" id="guests" name="guests" min="1" max="10" value="1" />
+          </div>
+        </div>
+        <div class="form-group full-width">
+          <label for="dietary">Dietary Requirements</label>
+          <input type="text" id="dietary" name="dietary" placeholder="Vegetarian, vegan, allergies…" />
+        </div>
+        <div class="form-group full-width">
+          <label for="message">Message for the Couple (optional)</label>
+          <textarea id="message" name="message" rows="3" placeholder="Share your wishes…"></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">Send RSVP</button>
+        <p class="form-note">Your response is saved locally. Contact us directly at <strong>lukas@example.com</strong> for any queries.</p>
+      </form>
+      <div class="rsvp-success" id="rsvpSuccess" hidden>
+        <div class="success-inner">
+          <div class="success-icon">♡</div>
+          <h3>Thank you!</h3>
+          <p>Your RSVP has been received. We are so excited to celebrate with you.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="faq-section">
+    <div class="section-wrap">
+      <p class="section-eyebrow">Questions?</p>
+      <h2 class="section-title">FAQ</h2>
+      <div class="faq-list">
+
+        <details class="faq-item">
+          <summary>What should I wear?</summary>
+          <p>Smart elegant / cocktail attire. Think garden party chic — flowy dresses, linen suits. No white please. The venue is partly outdoors so comfortable shoes are a good idea.</p>
+        </details>
+
+        <details class="faq-item">
+          <summary>Can I bring my children?</summary>
+          <p>We love children and welcome those of immediate family members. Please let us know in the RSVP so we can arrange appropriate seating and activities.</p>
+        </details>
+
+        <details class="faq-item">
+          <summary>Is there parking at the venue?</summary>
+          <p>Yes, free parking is available on-site. We also encourage carpooling — use the RSVP message field to connect with other guests.</p>
+        </details>
+
+        <details class="faq-item">
+          <summary>Will the ceremony be outdoors?</summary>
+          <p>The ceremony is planned outdoors weather permitting, with an elegant indoor alternative ready just in case. This is the mountains — we're prepared for anything!</p>
+        </details>
+
+        <details class="faq-item">
+          <summary>Can I post photos to social media?</summary>
+          <p>Of course! We'd love to see your captures. Please use the hashtag <strong>#LukasAndPaja2027</strong> so we can find them all.</p>
+        </details>
+
+        <details class="faq-item">
+          <summary>What time should I leave?</summary>
+          <p>The party goes late — whenever you feel ready. Shuttle service back to the recommended hotels will run at midnight and 02:00.</p>
+        </details>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="footer-monogram">L &amp; T</div>
+    <p class="footer-date">13 · III · 2027</p>
+    <p class="footer-tagline">Made with love &amp; a little magic</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

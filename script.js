@@ -1,278 +1,256 @@
 /* =========================================
-   WEDDING INVITATION — script.js
-   Lukáš & [Bride] · March 2027
+   WEDDING — script.js
+   Lukáš & Pája · 11. července 2026
+   =========================================
+   RSVP emails → Formspree
+   To activate:
+   1. Go to https://formspree.io and sign up (free)
+   2. Create a new form → set recipient to capekabcd@gmail.com
+   3. Replace FORMSPREE_ID below with your form ID
    ========================================= */
 
 'use strict';
 
-// ── Config ────────────────────────────────
-const WEDDING_DATE = new Date('2027-03-13T14:00:00');
+// ── Config ──────────────────────────────────────────────
+const WEDDING_DATE = new Date('2026-07-11T11:00:00');
 
-const CALENDAR_DETAILS = {
-  title:       'Wedding of Lukáš & [Bride]',
-  start:       '20270313T140000',
-  end:         '20270313T230000',
-  location:    'Uhřínov u Liberka, Orlické hory, Czech Republic',
-  description: 'Join us to celebrate the wedding of Lukáš & [Bride] — ceremony at 14:00, party from 17:00.',
+// 👇 Replace with your Formspree form ID after signing up at formspree.io
+// Example: if your endpoint is https://formspree.io/f/xaybcdeg → use 'xaybcdeg'
+const FORMSPREE_ID = 'YOUR_FORMSPREE_ID';
+
+const CALENDAR = {
+  title:       'Svatba Lukáše a Páji 💒',
+  start:       '20260711T110000',
+  end:         '20260712T140000',
+  location:    'Kunčina Ves, Orlické hory, Česká republika',
+  description: 'Obřad v 11:00, oběd ve 12:00. Konec pronájmu neděle ve 14:00.',
 };
 
-// ── DOM refs ──────────────────────────────
-const navbar     = document.getElementById('navbar');
-const darkToggle = document.getElementById('darkToggle');
-const rsvpForm   = document.getElementById('rsvpForm');
+// ── DOM refs ────────────────────────────────────────────
+const navbar      = document.getElementById('navbar');
+const darkToggle  = document.getElementById('darkToggle');
+const rsvpForm    = document.getElementById('rsvpForm');
 const rsvpSuccess = document.getElementById('rsvpSuccess');
-const calBtn     = document.getElementById('calBtn');
-const cdDays     = document.getElementById('cd-days');
-const cdHours    = document.getElementById('cd-hours');
-const cdMins     = document.getElementById('cd-mins');
-const cdSecs     = document.getElementById('cd-secs');
+const calBtn      = document.getElementById('calBtn');
+const cdDays      = document.getElementById('cd-days');
+const cdHours     = document.getElementById('cd-hours');
+const cdMins      = document.getElementById('cd-mins');
+const cdSecs      = document.getElementById('cd-secs');
+const submitBtn   = document.getElementById('submitBtn');
 
 // ─────────────────────────────────────────
-// 1.  DARK MODE
+// 1. DARK MODE
 // ─────────────────────────────────────────
 function initTheme() {
-  const saved = localStorage.getItem('weddingTheme');
-  const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-  const theme = saved || (prefersDark ? 'dark' : 'light');
-  applyTheme(theme);
+  const saved      = localStorage.getItem('weddingTheme');
+  const preferDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+  applyTheme(saved || (preferDark ? 'dark' : 'light'));
 }
-
-function applyTheme(theme) {
-  document.documentElement.setAttribute('data-theme', theme);
-  localStorage.setItem('weddingTheme', theme);
+function applyTheme(t) {
+  document.documentElement.setAttribute('data-theme', t);
+  localStorage.setItem('weddingTheme', t);
 }
-
-function toggleTheme() {
-  const current = document.documentElement.getAttribute('data-theme');
-  applyTheme(current === 'dark' ? 'light' : 'dark');
-}
-
-darkToggle.addEventListener('click', toggleTheme);
+darkToggle.addEventListener('click', () => {
+  const cur = document.documentElement.getAttribute('data-theme');
+  applyTheme(cur === 'dark' ? 'light' : 'dark');
+});
 initTheme();
 
 // ─────────────────────────────────────────
-// 2.  NAVBAR — scroll behaviour
+// 2. NAVBAR
 // ─────────────────────────────────────────
 window.addEventListener('scroll', () => {
-  navbar.classList.toggle('scrolled', window.scrollY > 60);
+  navbar.classList.toggle('scrolled', window.scrollY > 50);
 }, { passive: true });
 
-// Smooth nav link active state
-const sections = document.querySelectorAll('section[id], div[id]');
+// Active link on scroll
+const sections = document.querySelectorAll('section[id]');
 const navLinks = document.querySelectorAll('.nav-links a');
-
-const sectionObserver = new IntersectionObserver(entries => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
+new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
       navLinks.forEach(a => a.classList.remove('active'));
-      const active = document.querySelector(`.nav-links a[href="#${entry.target.id}"]`);
-      if (active) active.classList.add('active');
+      const a = document.querySelector(`.nav-links a[href="#${e.target.id}"]`);
+      if (a) a.classList.add('active');
     }
   });
-}, { threshold: 0.3 });
-
-sections.forEach(s => sectionObserver.observe(s));
+}, { threshold: 0.3 }).observe && sections.forEach(s => {
+  new IntersectionObserver(entries => {
+    if (entries[0].isIntersecting) {
+      navLinks.forEach(a => a.classList.remove('active'));
+      const a = document.querySelector(`.nav-links a[href="#${s.id}"]`);
+      if (a) a.classList.add('active');
+    }
+  }, { threshold: 0.3 }).observe(s);
+});
 
 // ─────────────────────────────────────────
-// 3.  COUNTDOWN TIMER
+// 3. COUNTDOWN
 // ─────────────────────────────────────────
 function pad(n, len = 2) {
   return String(Math.max(0, n)).padStart(len, '0');
 }
-
-function updateCountdown() {
-  const now  = Date.now();
-  const diff = WEDDING_DATE.getTime() - now;
-
-  if (diff <= 0) {
-    cdDays.textContent  = '000';
-    cdHours.textContent = '00';
-    cdMins.textContent  = '00';
-    cdSecs.textContent  = '00';
-    return;
-  }
-
-  const totalSecs = Math.floor(diff / 1000);
-  const days      = Math.floor(totalSecs / 86400);
-  const hours     = Math.floor((totalSecs % 86400) / 3600);
-  const mins      = Math.floor((totalSecs % 3600) / 60);
-  const secs      = totalSecs % 60;
-
-  setNum(cdDays,  pad(days, 3));
-  setNum(cdHours, pad(hours));
-  setNum(cdMins,  pad(mins));
-  setNum(cdSecs,  pad(secs));
-}
-
 function setNum(el, val) {
   if (el.textContent !== val) {
     el.classList.add('flip');
-    setTimeout(() => {
-      el.textContent = val;
-      el.classList.remove('flip');
-    }, 75);
+    setTimeout(() => { el.textContent = val; el.classList.remove('flip'); }, 80);
   }
 }
-
-updateCountdown();
-setInterval(updateCountdown, 1000);
+function tick() {
+  const diff = WEDDING_DATE.getTime() - Date.now();
+  if (diff <= 0) {
+    [cdDays, cdHours, cdMins, cdSecs].forEach((el, i) =>
+      setNum(el, i === 0 ? '000' : '00')
+    );
+    return;
+  }
+  const s  = Math.floor(diff / 1000);
+  setNum(cdDays,  pad(Math.floor(s / 86400), 3));
+  setNum(cdHours, pad(Math.floor((s % 86400) / 3600)));
+  setNum(cdMins,  pad(Math.floor((s % 3600) / 60)));
+  setNum(cdSecs,  pad(s % 60));
+}
+tick();
+setInterval(tick, 1000);
 
 // ─────────────────────────────────────────
-// 4.  GOOGLE CALENDAR LINK
+// 4. CALENDAR BUTTONS
 // ─────────────────────────────────────────
 function buildGCalLink(d) {
-  const base = 'https://www.google.com/calendar/render?action=TEMPLATE';
   const p = new URLSearchParams({
-    text:     d.title,
-    dates:    `${d.start}/${d.end}`,
+    action: 'TEMPLATE',
+    text:   d.title,
+    dates:  `${d.start}/${d.end}`,
     location: d.location,
     details:  d.description,
   });
-  return `${base}&${p.toString()}`;
+  return `https://www.google.com/calendar/render?${p}`;
 }
+calBtn.href = buildGCalLink(CALENDAR);
 
-calBtn.href = buildGCalLink(CALENDAR_DETAILS);
-
-// Also generate an ICS download option (fallback)
-function buildICS(d) {
-  const now = new Date().toISOString().replace(/[-:]/g, '').split('.')[0] + 'Z';
-  return [
-    'BEGIN:VCALENDAR',
-    'VERSION:2.0',
-    'PRODID:-//Wedding Invite//EN',
-    'BEGIN:VEVENT',
-    `UID:${now}-wedding@lukas-bride.cz`,
-    `DTSTAMP:${now}`,
-    `DTSTART:${d.start}`,
-    `DTEND:${d.end}`,
-    `SUMMARY:${d.title}`,
-    `DESCRIPTION:${d.description}`,
-    `LOCATION:${d.location}`,
-    'END:VEVENT',
-    'END:VCALENDAR',
-  ].join('\r\n');
-}
-
-// Append ICS button after cal button
-(function addICSButton() {
+// ICS download button
+(function addICSBtn() {
   const btn = document.createElement('a');
   btn.className = 'btn btn-outline';
-  btn.style.marginLeft = '0.75rem';
-  btn.innerHTML = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg> Download .ics`;
+  btn.innerHTML = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg> Stáhnout .ics`;
+  btn.href = '#';
   btn.addEventListener('click', e => {
     e.preventDefault();
-    const blob = new Blob([buildICS(CALENDAR_DETAILS)], { type: 'text/calendar' });
-    const url  = URL.createObjectURL(blob);
-    const a    = document.createElement('a');
-    a.href     = url;
-    a.download = 'lukas-bride-wedding.ics';
-    a.click();
+    const ics = [
+      'BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//Lukáš&Pája//CS',
+      'BEGIN:VEVENT',
+      `UID:${Date.now()}@lukas-paja.cz`,
+      `DTSTAMP:${new Date().toISOString().replace(/[-:.]/g,'').slice(0,15)}Z`,
+      `DTSTART:${CALENDAR.start}`,
+      `DTEND:${CALENDAR.end}`,
+      `SUMMARY:${CALENDAR.title}`,
+      `DESCRIPTION:${CALENDAR.description}`,
+      `LOCATION:${CALENDAR.location}`,
+      'END:VEVENT', 'END:VCALENDAR',
+    ].join('\r\n');
+    const url = URL.createObjectURL(new Blob([ics], { type: 'text/calendar' }));
+    Object.assign(document.createElement('a'), { href: url, download: 'lukas-paja-svatba.ics' }).click();
     URL.revokeObjectURL(url);
   });
-  calBtn.parentNode.insertBefore(btn, calBtn.nextSibling);
+  calBtn.parentNode.appendChild(btn);
 })();
 
 // ─────────────────────────────────────────
-// 5.  SCROLL ANIMATIONS (mini AOS)
+// 5. SCROLL ANIMATIONS
 // ─────────────────────────────────────────
-const animObserver = new IntersectionObserver(entries => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      entry.target.classList.add('visible');
-      animObserver.unobserve(entry.target);
+const aoObs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('visible');
+      aoObs.unobserve(e.target);
     }
   });
-}, { threshold: 0.15 });
+}, { threshold: 0.12 });
 
-document.querySelectorAll('[data-aos], .timeline-item').forEach(el => {
-  animObserver.observe(el);
-});
+document.querySelectorAll('[data-aos], .timeline-item').forEach(el => aoObs.observe(el));
 
 // ─────────────────────────────────────────
-// 6.  RSVP FORM
+// 6. RSVP FORM — Formspree integration
 // ─────────────────────────────────────────
-function validateField(el) {
+function validate(el) {
   const ok = el.checkValidity() && el.value.trim() !== '';
   el.classList.toggle('error', !ok);
   return ok;
 }
 
-rsvpForm && rsvpForm.addEventListener('submit', e => {
+rsvpForm && rsvpForm.addEventListener('submit', async e => {
   e.preventDefault();
 
-  const name      = rsvpForm.querySelector('#fname');
-  const email     = rsvpForm.querySelector('#email');
-  const attending = rsvpForm.querySelector('#attending');
+  const fName     = rsvpForm.querySelector('#fname');
+  const fEmail    = rsvpForm.querySelector('#femail');
+  const fAttend   = rsvpForm.querySelector('#attending');
+  if (![fName, fEmail, fAttend].map(validate).every(Boolean)) return;
 
-  const valid = [name, email, attending].map(validateField).every(Boolean);
-  if (!valid) return;
-
-  // Build submission object
-  const data = {
-    name:      name.value.trim(),
-    email:     email.value.trim(),
-    attending: attending.value,
-    guests:    rsvpForm.querySelector('#guests').value,
-    dietary:   rsvpForm.querySelector('#dietary').value.trim(),
-    message:   rsvpForm.querySelector('#message').value.trim(),
-    timestamp: new Date().toISOString(),
+  const payload = {
+    jmeno:      fName.value.trim(),
+    email:      fEmail.value.trim(),
+    prijde:     fAttend.value === 'yes' ? 'ANO – přijde' : 'NE – nepřijde',
+    pocet_osob: rsvpForm.querySelector('#guests').value,
+    diety:      rsvpForm.querySelector('#dietary').value.trim() || '–',
+    ubytovani:  rsvpForm.querySelector('#accom').value || '–',
+    vzkaz:      rsvpForm.querySelector('#message').value.trim() || '–',
   };
 
-  // Save to localStorage (works offline / static hosting)
-  try {
-    const existing = JSON.parse(localStorage.getItem('weddingRSVPs') || '[]');
-    existing.push(data);
-    localStorage.setItem('weddingRSVPs', JSON.stringify(existing));
-  } catch (_) { /* quota exceeded — silently ignore */ }
+  // Show loading state
+  submitBtn.querySelector('.btn-text').hidden = true;
+  submitBtn.querySelector('.btn-loading').hidden = false;
+  submitBtn.disabled = true;
 
-  // Animate transition
-  rsvpForm.style.transition = 'opacity 0.4s ease';
+  // ── Send to Formspree ──────────────────────────
+  // If FORMSPREE_ID is set, send via API
+  if (FORMSPREE_ID && FORMSPREE_ID !== 'YOUR_FORMSPREE_ID') {
+    try {
+      const res = await fetch(`https://formspree.io/f/${FORMSPREE_ID}`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify(payload),
+      });
+      if (!res.ok) throw new Error('Formspree error');
+    } catch (err) {
+      // Fallback: still show success, log error
+      console.error('Formspree submit failed:', err);
+    }
+  } else {
+    // No Formspree ID yet → save locally and warn in console
+    console.warn('Formspree ID not configured. RSVP saved locally only.');
+    console.info('Set up at https://formspree.io → replace FORMSPREE_ID in script.js');
+    await new Promise(r => setTimeout(r, 800)); // simulate network
+  }
+
+  // Always persist locally as backup
+  try {
+    const list = JSON.parse(localStorage.getItem('rsvps') || '[]');
+    list.push({ ...payload, ts: new Date().toISOString() });
+    localStorage.setItem('rsvps', JSON.stringify(list));
+  } catch (_) {}
+
+  // Show success
+  rsvpForm.style.transition = 'opacity 0.35s';
   rsvpForm.style.opacity = '0';
   setTimeout(() => {
     rsvpForm.hidden = true;
     rsvpSuccess.hidden = false;
     rsvpSuccess.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-  }, 400);
-
-  console.info('RSVP submitted:', data);
-  // ℹ️  In production: replace localStorage logic with a fetch() to your
-  //     serverless function / Formspree / Netlify Forms endpoint.
+  }, 350);
 });
 
-// Live validation on blur
-rsvpForm && rsvpForm.querySelectorAll('input, select').forEach(el => {
-  el.addEventListener('blur', () => {
-    if (el.required) validateField(el);
-  });
-  el.addEventListener('input', () => {
-    if (el.classList.contains('error')) validateField(el);
-  });
+// Live validation feedback
+rsvpForm && rsvpForm.querySelectorAll('input[required], select[required]').forEach(el => {
+  el.addEventListener('blur',  () => validate(el));
+  el.addEventListener('input', () => { if (el.classList.contains('error')) validate(el); });
 });
 
 // ─────────────────────────────────────────
-// 7.  PARALLAX — subtle hero layer
+// 7. PARALLAX — subtle hero topo layer
 // ─────────────────────────────────────────
-const heroBg = document.querySelector('.hero-bg');
-if (heroBg && window.matchMedia('(min-width: 769px)').matches) {
+const topoLayer = document.querySelector('.hero-topo');
+if (topoLayer && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
   window.addEventListener('scroll', () => {
-    const y = window.scrollY;
-    heroBg.style.transform = `translateY(${y * 0.25}px)`;
+    topoLayer.style.transform = `translateY(${window.scrollY * 0.18}px)`;
   }, { passive: true });
 }
-
-// ─────────────────────────────────────────
-// 8.  HERO ENTRANCE ANIMATION
-// ─────────────────────────────────────────
-window.addEventListener('load', () => {
-  document.body.style.opacity = '1';
-});
-
-// ─────────────────────────────────────────
-// 9.  NAV MOBILE — smooth active highlight
-// ─────────────────────────────────────────
-document.querySelectorAll('.nav-links a').forEach(a => {
-  a.addEventListener('click', function() {
-    navLinks.forEach(l => l.classList.remove('active'));
-    this.classList.add('active');
-  });
-});

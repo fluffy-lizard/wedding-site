@@ -121,7 +121,7 @@ function downloadICS() {
       'Oběd ve 12:00.\\nProsíme bez zvířat.\\n' +
       'Parkujte na přilehlé louce.\\n' +
       'Areál uvolněte do neděle 14:00.',
-    'LOCATION:Chalupa Kunčinka\\, Kunčina Ves\\, Orlické hory\\, Czech Republic',
+    'LOCATION:Škola na Vsi\\, Kunčina Ves 61\\, 516 01 Zdobnice\\, Orlické hory',
     'GEO:50.2236725;16.3832923',
     'STATUS:CONFIRMED',
     'TRANSP:OPAQUE',

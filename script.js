@@ -1,257 +1,431 @@
-/* =========================================
-   WEDDING — script.js
-   Lukáš & Pája · 11. července 2026
-   =========================================
-   RSVP emails → Formspree
-   To activate:
-   1. Go to https://formspree.io and sign up (free)
-   2. Create a new form → set recipient to capekabcd@gmail.com
-   3. Replace FORMSPREE_ID below with your form ID
-   ========================================= */
+/* ===================================================
+   WEDDING WEBSITE — script.js
+   Lukáš & Pája · July 11, 2026
+   =================================================== */
 
-'use strict';
+/* ===================================================
+   EMAILJS CONFIGURATION
+   ---------------------------------------------------
+   SETUP STEPS:
+   1. Create free account at https://www.emailjs.com
+   2. Dashboard → Email Services → Add New Service → Gmail
+      → Name it "wedding_gmail" → note the Service ID
+   3. Dashboard → Email Templates → Create New Template
+      Subject:  New RSVP from {{name}}
+      Body:
+        Name: {{name}}
+        Attending: {{attending}}
+        Guests: {{guests}}
+        Message / Dietary: {{message}}
+      To Email: capekabcd@gmail.com
+      Note the Template ID
+   4. Account → API Keys → copy Public Key
+   5. Replace the three constants below
+   6. In index.html, un-comment the EmailJS <script> tag
+   =================================================== */
+const EMAILJS_PUBLIC_KEY  = 'YOUR_PUBLIC_KEY';    // e.g. "aB1cD2eF3gH4"
+const EMAILJS_SERVICE_ID  = 'YOUR_SERVICE_ID';    // e.g. "service_abc123"
+const EMAILJS_TEMPLATE_ID = 'YOUR_TEMPLATE_ID';  // e.g. "template_xyz789"
 
-// ── Config ──────────────────────────────────────────────
-// Explicit year/month/day/hour constructor avoids UTC vs local timezone issues
-const WEDDING_DATE = new Date(2026, 6, 11, 11, 0, 0); // month is 0-indexed → 6 = July
+/* ===================================================
+   LANGUAGE
+   =================================================== */
+let currentLang = 'en';
 
-// 👇 Replace with your Formspree form ID after signing up at formspree.io
-// Example: if your endpoint is https://formspree.io/f/xaybcdeg → use 'xaybcdeg'
-const FORMSPREE_ID = 'YOUR_FORMSPREE_ID';
-
-const CALENDAR = {
-  title:       'Svatba Lukase a Paji',   // no emoji/diacritics → safe URL encoding
-  start:       '20260711T110000',
-  end:         '20260712T140000',
-  location:    'Kuncina Ves, Orlicke hory, Czech Republic',
-  description: 'Obrad v 11:00, obed ve 12:00. Konec pronajmu nedele ve 14:00.',
-};
-
-// ── DOM refs ────────────────────────────────────────────
-const navbar      = document.getElementById('navbar');
-const darkToggle  = document.getElementById('darkToggle');
-const rsvpForm    = document.getElementById('rsvpForm');
-const rsvpSuccess = document.getElementById('rsvpSuccess');
-const calBtn      = document.getElementById('calBtn');
-const cdDays      = document.getElementById('cd-days');
-const cdHours     = document.getElementById('cd-hours');
-const cdMins      = document.getElementById('cd-mins');
-const cdSecs      = document.getElementById('cd-secs');
-const submitBtn   = document.getElementById('submitBtn');
-
-// ─────────────────────────────────────────
-// 1. DARK MODE
-// ─────────────────────────────────────────
-function initTheme() {
-  const saved      = localStorage.getItem('weddingTheme');
-  const preferDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-  applyTheme(saved || (preferDark ? 'dark' : 'light'));
+function detectLanguage() {
+  const browserLang = (navigator.language || navigator.userLanguage || 'en').toLowerCase();
+  return browserLang.startsWith('cs') || browserLang.startsWith('sk') ? 'cs' : 'en';
 }
-function applyTheme(t) {
-  document.documentElement.setAttribute('data-theme', t);
-  localStorage.setItem('weddingTheme', t);
-}
-darkToggle.addEventListener('click', () => {
-  const cur = document.documentElement.getAttribute('data-theme');
-  applyTheme(cur === 'dark' ? 'light' : 'dark');
-});
-initTheme();
 
-// ─────────────────────────────────────────
-// 2. NAVBAR
-// ─────────────────────────────────────────
-window.addEventListener('scroll', () => {
-  navbar.classList.toggle('scrolled', window.scrollY > 50);
-}, { passive: true });
+function applyLanguage(lang) {
+  currentLang = lang;
+  document.documentElement.lang = lang;
 
-// Active link on scroll
-const sections = document.querySelectorAll('section[id]');
-const navLinks = document.querySelectorAll('.nav-links a');
-sections.forEach(s => {
-  new IntersectionObserver(entries => {
-    if (entries[0].isIntersecting) {
-      navLinks.forEach(a => a.classList.remove('active'));
-      const a = document.querySelector(`.nav-links a[href="#${s.id}"]`);
-      if (a) a.classList.add('active');
+  // Update all [data-en] / [data-cs] elements
+  document.querySelectorAll('[data-en]').forEach(el => {
+    const text = el.getAttribute('data-' + lang);
+    if (!text) return;
+    // For headings with <br> we can use innerHTML
+    if (el.innerHTML.includes('<br') || text.includes('<br')) {
+      el.innerHTML = text;
+    } else if (el.tagName !== 'INPUT' && el.tagName !== 'TEXTAREA') {
+      el.textContent = text;
     }
-  }, { threshold: 0.3 }).observe(s);
-});
+  });
 
-// ─────────────────────────────────────────
-// 3. COUNTDOWN
-// ─────────────────────────────────────────
-function pad(n, len = 2) {
-  return String(Math.max(0, n)).padStart(len, '0');
-}
-function setNum(el, val) {
-  if (el.textContent !== val) {
-    el.classList.add('flip');
-    setTimeout(() => { el.textContent = val; el.classList.remove('flip'); }, 80);
+  // Update lang button
+  const btn = document.getElementById('langToggle');
+  if (btn) btn.textContent = lang === 'en' ? '🇨🇿 CS' : '🇬🇧 EN';
+
+  // Update placeholders
+  const dietEl = document.getElementById('rsvpDiet');
+  if (dietEl) {
+    dietEl.placeholder = lang === 'cs'
+      ? 'Vegetarián, bezlepkové… nebo jen vzkaz novomanželům'
+      : 'Vegetarian, gluten-free, or any message to the couple…';
   }
+  const nameEl = document.getElementById('rsvpName');
+  if (nameEl) {
+    nameEl.placeholder = lang === 'cs' ? 'Jana Nováková' : 'Lukáš Novák';
+  }
+
+  // Update RSVP success message
+  const successMsg = document.getElementById('successMsg');
+  if (successMsg) {
+    successMsg.textContent = lang === 'cs'
+      ? 'Vaše potvrzení bylo přijato. Těšíme se na vás v horách! 🏔'
+      : 'We\'ve received your RSVP. See you in the mountains! 🏔';
+  }
+
+  localStorage.setItem('wedding-lang', lang);
 }
-function tick() {
-  const diff = WEDDING_DATE.getTime() - Date.now();
-  if (diff <= 0) {
-    [cdDays, cdHours, cdMins, cdSecs].forEach((el, i) =>
-      setNum(el, i === 0 ? '000' : '00')
-    );
+
+function toggleLanguage() {
+  applyLanguage(currentLang === 'en' ? 'cs' : 'en');
+}
+
+/* ===================================================
+   DARK MODE
+   =================================================== */
+function applyDark(isDark) {
+  document.body.classList.toggle('dark', isDark);
+  localStorage.setItem('wedding-dark', isDark ? '1' : '0');
+}
+
+function toggleDark() {
+  applyDark(!document.body.classList.contains('dark'));
+}
+
+/* ===================================================
+   NAV — scroll & mobile
+   =================================================== */
+function initNav() {
+  const nav = document.querySelector('.nav');
+  const hamburger = document.getElementById('hamburger');
+  const mobileMenu = document.getElementById('mobileMenu');
+
+  // Scroll state
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 40);
+  }, { passive: true });
+
+  // Hamburger
+  hamburger.addEventListener('click', () => {
+    const open = mobileMenu.classList.toggle('open');
+    hamburger.classList.toggle('open', open);
+    hamburger.setAttribute('aria-expanded', open);
+  });
+
+  // Close mobile menu on link click
+  mobileMenu.querySelectorAll('a').forEach(a => {
+    a.addEventListener('click', () => {
+      mobileMenu.classList.remove('open');
+      hamburger.classList.remove('open');
+      hamburger.setAttribute('aria-expanded', 'false');
+    });
+  });
+
+  // Close on outside click
+  document.addEventListener('click', (e) => {
+    if (!nav.contains(e.target)) {
+      mobileMenu.classList.remove('open');
+      hamburger.classList.remove('open');
+      hamburger.setAttribute('aria-expanded', 'false');
+    }
+  });
+}
+
+/* ===================================================
+   COUNTDOWN TIMER
+   =================================================== */
+function initCountdown() {
+  // Wedding: 11 July 2026 at 11:00 AM CET (UTC+2 in summer)
+  const weddingDate = new Date('2026-07-11T09:00:00Z'); // 11:00 CET = 09:00 UTC
+
+  const daysEl  = document.getElementById('cd-days');
+  const hoursEl = document.getElementById('cd-hours');
+  const minsEl  = document.getElementById('cd-mins');
+  const secsEl  = document.getElementById('cd-secs');
+
+  function pad(n) { return String(Math.max(0, n)).padStart(2, '0'); }
+
+  function tick() {
+    const now  = new Date();
+    const diff = weddingDate - now;
+
+    if (diff <= 0) {
+      daysEl.textContent  = '00';
+      hoursEl.textContent = '00';
+      minsEl.textContent  = '00';
+      secsEl.textContent  = '00';
+      return;
+    }
+
+    const totalSec = Math.floor(diff / 1000);
+    const days  = Math.floor(totalSec / 86400);
+    const hours = Math.floor((totalSec % 86400) / 3600);
+    const mins  = Math.floor((totalSec % 3600)  / 60);
+    const secs  = totalSec % 60;
+
+    daysEl.textContent  = String(days);
+    hoursEl.textContent = pad(hours);
+    minsEl.textContent  = pad(mins);
+    secsEl.textContent  = pad(secs);
+  }
+
+  tick();
+  setInterval(tick, 1000);
+}
+
+/* ===================================================
+   ICS / CALENDAR DOWNLOAD
+   =================================================== */
+function downloadICS() {
+  const icsContent = [
+    'BEGIN:VCALENDAR',
+    'VERSION:2.0',
+    'PRODID:-//Lukas & Paja Wedding//EN',
+    'CALSCALE:GREGORIAN',
+    'METHOD:PUBLISH',
+    'BEGIN:VEVENT',
+    'UID:lukas-paja-wedding-2026@wedding',
+    'DTSTAMP:' + formatICSDate(new Date()),
+    'DTSTART;TZID=Europe/Prague:20260711T110000',
+    'DTEND;TZID=Europe/Prague:20260711T230000',
+    'SUMMARY:Lukáš & Pája – Wedding 💍',
+    'DESCRIPTION:Ceremony at 11:00 AM (outdoors if weather allows).\\n' +
+      'Lunch at 12:00 PM.\\nPlease no photos during ceremony.\\n' +
+      'No pets please.\\nPark on the nearby meadow.\\n' +
+      'Please vacate venue by Sunday 2:00 PM.',
+    'LOCATION:Kunčina Ves\\, Orlické hory\\, Czech Republic',
+    'GEO:50.2236725;16.3832923',
+    'STATUS:CONFIRMED',
+    'TRANSP:OPAQUE',
+    'END:VEVENT',
+    'END:VCALENDAR'
+  ].join('\r\n');
+
+  const blob = new Blob([icsContent], { type: 'text/calendar;charset=utf-8' });
+  const url  = URL.createObjectURL(blob);
+  const link = document.createElement('a');
+  link.href     = url;
+  link.download = 'lukas-paja-wedding.ics';
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+  setTimeout(() => URL.revokeObjectURL(url), 10000);
+}
+
+function formatICSDate(date) {
+  return date.toISOString().replace(/[-:]/g, '').split('.')[0] + 'Z';
+}
+
+/* ===================================================
+   RSVP FORM
+   =================================================== */
+function initRSVP() {
+  const submitBtn = document.getElementById('rsvpSubmit');
+  if (!submitBtn) return;
+
+  submitBtn.addEventListener('click', handleRSVP);
+}
+
+async function handleRSVP() {
+  const name      = document.getElementById('rsvpName').value.trim();
+  const attending = document.querySelector('input[name="attending"]:checked');
+  const guests    = document.getElementById('rsvpGuests').value;
+  const message   = document.getElementById('rsvpDiet').value.trim();
+
+  // Validation
+  if (!name) {
+    showFieldError('rsvpName', currentLang === 'cs' ? 'Prosíme zadejte jméno.' : 'Please enter your name.');
     return;
   }
-  const s  = Math.floor(diff / 1000);
-  setNum(cdDays,  pad(Math.floor(s / 86400), 3));
-  setNum(cdHours, pad(Math.floor((s % 86400) / 3600)));
-  setNum(cdMins,  pad(Math.floor((s % 3600) / 60)));
-  setNum(cdSecs,  pad(s % 60));
-}
-tick();
-setInterval(tick, 1000);
-
-// ─────────────────────────────────────────
-// 4. CALENDAR BUTTONS
-// ─────────────────────────────────────────
-function buildGCalLink(d) {
-  const p = new URLSearchParams({
-    action: 'TEMPLATE',
-    text:   d.title,
-    dates:  `${d.start}/${d.end}`,
-    location: d.location,
-    details:  d.description,
-  });
-  return `https://www.google.com/calendar/render?${p}`;
-}
-calBtn.href = buildGCalLink(CALENDAR);
-
-// ICS download button
-(function addICSBtn() {
-  const btn = document.createElement('a');
-  btn.className = 'btn btn-outline';
-  btn.innerHTML = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg> Stáhnout .ics`;
-  btn.href = '#';
-  btn.addEventListener('click', e => {
-    e.preventDefault();
-    const ics = [
-      'BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//Lukáš&Pája//CS',
-      'BEGIN:VEVENT',
-      `UID:${Date.now()}@lukas-paja.cz`,
-      `DTSTAMP:${new Date().toISOString().replace(/[-:.]/g,'').slice(0,15)}Z`,
-      `DTSTART:${CALENDAR.start}`,
-      `DTEND:${CALENDAR.end}`,
-      `SUMMARY:${CALENDAR.title}`,
-      `DESCRIPTION:${CALENDAR.description}`,
-      `LOCATION:${CALENDAR.location}`,
-      'END:VEVENT', 'END:VCALENDAR',
-    ].join('\r\n');
-    const url = URL.createObjectURL(new Blob([ics], { type: 'text/calendar' }));
-    Object.assign(document.createElement('a'), { href: url, download: 'lukas-paja-svatba.ics' }).click();
-    URL.revokeObjectURL(url);
-  });
-  calBtn.parentNode.appendChild(btn);
-})();
-
-// ─────────────────────────────────────────
-// 5. SCROLL ANIMATIONS
-// ─────────────────────────────────────────
-const aoObs = new IntersectionObserver(entries => {
-  entries.forEach(e => {
-    if (e.isIntersecting) {
-      e.target.classList.add('visible');
-      aoObs.unobserve(e.target);
-    }
-  });
-}, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
-
-document.querySelectorAll('[data-aos], .timeline-item').forEach(el => aoObs.observe(el));
-
-// Also trigger anything already visible on first load (e.g. hero items)
-window.addEventListener('load', () => {
-  document.querySelectorAll('[data-aos], .timeline-item').forEach(el => {
-    const rect = el.getBoundingClientRect();
-    if (rect.top < window.innerHeight) el.classList.add('visible');
-  });
-});
-
-// ─────────────────────────────────────────
-// 6. RSVP FORM — Formspree integration
-// ─────────────────────────────────────────
-function validate(el) {
-  const ok = el.checkValidity() && el.value.trim() !== '';
-  el.classList.toggle('error', !ok);
-  return ok;
-}
-
-rsvpForm && rsvpForm.addEventListener('submit', async e => {
-  e.preventDefault();
-
-  const fName     = rsvpForm.querySelector('#fname');
-  const fEmail    = rsvpForm.querySelector('#femail');
-  const fAttend   = rsvpForm.querySelector('#attending');
-  if (![fName, fEmail, fAttend].map(validate).every(Boolean)) return;
-
-  const payload = {
-    jmeno:      fName.value.trim(),
-    email:      fEmail.value.trim(),
-    prijde:     fAttend.value === 'yes' ? 'ANO – přijde' : 'NE – nepřijde',
-    pocet_osob: rsvpForm.querySelector('#guests').value,
-    diety:      rsvpForm.querySelector('#dietary').value.trim() || '–',
-    ubytovani:  rsvpForm.querySelector('#accom').value || '–',
-    vzkaz:      rsvpForm.querySelector('#message').value.trim() || '–',
-  };
-
-  // Show loading state
-  submitBtn.querySelector('.btn-text').hidden = true;
-  submitBtn.querySelector('.btn-loading').hidden = false;
-  submitBtn.disabled = true;
-
-  // ── Send to Formspree ──────────────────────────
-  // If FORMSPREE_ID is set, send via API
-  if (FORMSPREE_ID && FORMSPREE_ID !== 'YOUR_FORMSPREE_ID') {
-    try {
-      const res = await fetch(`https://formspree.io/f/${FORMSPREE_ID}`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-        body: JSON.stringify(payload),
-      });
-      if (!res.ok) throw new Error('Formspree error');
-    } catch (err) {
-      // Fallback: still show success, log error
-      console.error('Formspree submit failed:', err);
-    }
-  } else {
-    // No Formspree ID yet → save locally and warn in console
-    console.warn('Formspree ID not configured. RSVP saved locally only.');
-    console.info('Set up at https://formspree.io → replace FORMSPREE_ID in script.js');
-    await new Promise(r => setTimeout(r, 800)); // simulate network
+  if (!attending) {
+    alert(currentLang === 'cs'
+      ? 'Prosíme vyberte, zda se zúčastníte.'
+      : 'Please select whether you will attend.');
+    return;
   }
 
-  // Always persist locally as backup
+  const btn = document.getElementById('rsvpSubmit');
+  btn.disabled  = true;
+  btn.textContent = currentLang === 'cs' ? 'Odesílám…' : 'Sending…';
+
+  const params = {
+    name:      name,
+    attending: attending.value === 'yes'
+      ? (currentLang === 'cs' ? 'Ano, přijdu!' : 'Yes, attending!')
+      : (currentLang === 'cs' ? 'Bohužel se nezúčastním' : 'Cannot attend'),
+    guests:    guests || '1',
+    message:   message || (currentLang === 'cs' ? '(žádný vzkaz)' : '(no message)'),
+  };
+
   try {
-    const list = JSON.parse(localStorage.getItem('rsvps') || '[]');
-    list.push({ ...payload, ts: new Date().toISOString() });
-    localStorage.setItem('rsvps', JSON.stringify(list));
-  } catch (_) {}
+    // Check if EmailJS is loaded (user has uncommented the script tag and set keys)
+    if (typeof emailjs !== 'undefined' && EMAILJS_PUBLIC_KEY !== 'YOUR_PUBLIC_KEY') {
+      emailjs.init(EMAILJS_PUBLIC_KEY);
+      await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, params);
+    } else {
+      // DEMO MODE: Simulate success when EmailJS isn't configured
+      // In production, remove this branch once EmailJS is set up
+      await new Promise(r => setTimeout(r, 1200));
+      console.log('RSVP (demo mode — EmailJS not configured):', params);
+    }
 
-  // Show success
-  rsvpForm.style.transition = 'opacity 0.35s';
-  rsvpForm.style.opacity = '0';
-  setTimeout(() => {
-    rsvpForm.hidden = true;
-    rsvpSuccess.hidden = false;
-    rsvpSuccess.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-  }, 350);
-});
+    // Show success
+    document.getElementById('rsvpForm').style.display = 'none';
+    const success = document.getElementById('rsvpSuccess');
+    success.hidden = false;
+    success.scrollIntoView({ behavior: 'smooth', block: 'center' });
 
-// Live validation feedback
-rsvpForm && rsvpForm.querySelectorAll('input[required], select[required]').forEach(el => {
-  el.addEventListener('blur',  () => validate(el));
-  el.addEventListener('input', () => { if (el.classList.contains('error')) validate(el); });
-});
+  } catch (err) {
+    console.error('EmailJS error:', err);
+    btn.disabled    = false;
+    btn.textContent = currentLang === 'cs' ? 'Odeslat potvrzení' : 'Send RSVP';
+    alert(currentLang === 'cs'
+      ? 'Odeslání selhalo. Zkuste to prosím znovu nebo nás kontaktujte přímo.'
+      : 'Sending failed. Please try again or contact us directly.');
+  }
+}
 
-// ─────────────────────────────────────────
-// 7. PARALLAX — subtle hero topo layer
-// ─────────────────────────────────────────
-const topoLayer = document.querySelector('.hero-topo');
-if (topoLayer && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+function showFieldError(id, msg) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  el.style.borderColor = '#c0392b';
+  el.focus();
+  el.addEventListener('input', () => { el.style.borderColor = ''; }, { once: true });
+  // Brief shake animation
+  el.style.animation = 'none';
+  el.offsetHeight; // reflow
+  el.style.animation = 'shake 0.3s ease';
+}
+
+/* ===================================================
+   FAQ ACCORDION
+   =================================================== */
+function initFAQ() {
+  document.querySelectorAll('.faq-q').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const expanded = btn.getAttribute('aria-expanded') === 'true';
+      const answer   = btn.nextElementSibling;
+
+      // Close all others
+      document.querySelectorAll('.faq-q').forEach(b => {
+        b.setAttribute('aria-expanded', 'false');
+        const a = b.nextElementSibling;
+        if (a) a.hidden = true;
+      });
+
+      if (!expanded) {
+        btn.setAttribute('aria-expanded', 'true');
+        answer.hidden = false;
+      }
+    });
+  });
+}
+
+/* ===================================================
+   SCROLL REVEAL
+   =================================================== */
+function initScrollReveal() {
+  const targets = document.querySelectorAll(
+    '.section-label, .section-title, .about-text, .about-photos, ' +
+    '.timeline-item, .info-card, .faq-item, .rsvp-form-wrap, ' +
+    '.rsvp-subtitle, .map-wrapper'
+  );
+
+  targets.forEach(el => el.classList.add('reveal'));
+
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        io.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+  targets.forEach(el => io.observe(el));
+}
+
+/* ===================================================
+   PARALLAX (hero bg subtle)
+   =================================================== */
+function initParallax() {
+  const heroBg = document.querySelector('.hero-bg');
+  if (!heroBg || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
   window.addEventListener('scroll', () => {
-    topoLayer.style.transform = `translateY(${window.scrollY * 0.18}px)`;
+    const scrolled = window.scrollY;
+    if (scrolled < window.innerHeight) {
+      heroBg.style.transform = `translateY(${scrolled * 0.3}px)`;
+    }
   }, { passive: true });
 }
+
+/* ===================================================
+   SMOOTH ACTIVE NAV HIGHLIGHT
+   =================================================== */
+function initActiveNav() {
+  const sections = document.querySelectorAll('section[id]');
+  const links    = document.querySelectorAll('.nav-links a, .mobile-menu a');
+
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        links.forEach(l => l.style.color = '');
+        const active = document.querySelector(`.nav-links a[href="#${entry.target.id}"]`);
+        if (active) active.style.color = 'var(--accent-light)';
+      }
+    });
+  }, { threshold: 0.4 });
+
+  sections.forEach(s => io.observe(s));
+}
+
+/* ===================================================
+   ADD SHAKE KEYFRAMES DYNAMICALLY
+   =================================================== */
+function injectShakeKeyframes() {
+  const style = document.createElement('style');
+  style.textContent = `
+    @keyframes shake {
+      0%,100% { transform: translateX(0); }
+      20%,60%  { transform: translateX(-5px); }
+      40%,80%  { transform: translateX(5px); }
+    }
+  `;
+  document.head.appendChild(style);
+}
+
+/* ===================================================
+   INIT
+   =================================================== */
+document.addEventListener('DOMContentLoaded', () => {
+  // Restore preferences
+  const savedLang = localStorage.getItem('wedding-lang') || detectLanguage();
+  const savedDark = localStorage.getItem('wedding-dark');
+
+  // Dark mode: restore or use system preference
+  const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+  applyDark(savedDark !== null ? savedDark === '1' : prefersDark);
+
+  // Language
+  applyLanguage(savedLang);
+
+  // Wire up controls
+  document.getElementById('langToggle')?.addEventListener('click', toggleLanguage);
+  document.getElementById('darkToggle')?.addEventListener('click', toggleDark);
+  document.getElementById('addCalBtn')?.addEventListener('click', downloadICS);
+
+  // Features
+  injectShakeKeyframes();
+  initNav();
+  initCountdown();
+  initRSVP();
+  initFAQ();
+  initScrollReveal();
+  initParallax();
+  initActiveNav();
+});

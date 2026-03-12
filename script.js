@@ -9,21 +9,22 @@
    3. Replace FORMSPREE_ID below with your form ID
    ========================================= */
 
-'use strict'; 
+'use strict';
 
 // ── Config ──────────────────────────────────────────────
-const WEDDING_DATE = new Date('2026-07-11T11:00:00');
+// Explicit year/month/day/hour constructor avoids UTC vs local timezone issues
+const WEDDING_DATE = new Date(2026, 6, 11, 11, 0, 0); // month is 0-indexed → 6 = July
 
 // 👇 Replace with your Formspree form ID after signing up at formspree.io
 // Example: if your endpoint is https://formspree.io/f/xaybcdeg → use 'xaybcdeg'
 const FORMSPREE_ID = 'YOUR_FORMSPREE_ID';
 
 const CALENDAR = {
-  title:       'Svatba Lukáše a Páji 💒',
+  title:       'Svatba Lukase a Paji',   // no emoji/diacritics → safe URL encoding
   start:       '20260711T110000',
   end:         '20260712T140000',
-  location:    'Kunčina Ves, Orlické hory, Česká republika',
-  description: 'Obřad v 11:00, oběd ve 12:00. Konec pronájmu neděle ve 14:00.',
+  location:    'Kuncina Ves, Orlicke hory, Czech Republic',
+  description: 'Obrad v 11:00, obed ve 12:00. Konec pronajmu nedele ve 14:00.',
 };
 
 // ── DOM refs ────────────────────────────────────────────
@@ -66,15 +67,7 @@ window.addEventListener('scroll', () => {
 // Active link on scroll
 const sections = document.querySelectorAll('section[id]');
 const navLinks = document.querySelectorAll('.nav-links a');
-new IntersectionObserver(entries => {
-  entries.forEach(e => {
-    if (e.isIntersecting) {
-      navLinks.forEach(a => a.classList.remove('active'));
-      const a = document.querySelector(`.nav-links a[href="#${e.target.id}"]`);
-      if (a) a.classList.add('active');
-    }
-  });
-}, { threshold: 0.3 }).observe && sections.forEach(s => {
+sections.forEach(s => {
   new IntersectionObserver(entries => {
     if (entries[0].isIntersecting) {
       navLinks.forEach(a => a.classList.remove('active'));
@@ -165,9 +158,17 @@ const aoObs = new IntersectionObserver(entries => {
       aoObs.unobserve(e.target);
     }
   });
-}, { threshold: 0.12 });
+}, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
 
 document.querySelectorAll('[data-aos], .timeline-item').forEach(el => aoObs.observe(el));
+
+// Also trigger anything already visible on first load (e.g. hero items)
+window.addEventListener('load', () => {
+  document.querySelectorAll('[data-aos], .timeline-item').forEach(el => {
+    const rect = el.getBoundingClientRect();
+    if (rect.top < window.innerHeight) el.classList.add('visible');
+  });
+});
 
 // ─────────────────────────────────────────
 // 6. RSVP FORM — Formspree integration

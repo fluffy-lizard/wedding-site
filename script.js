@@ -9,7 +9,7 @@
    3. Replace FORMSPREE_ID below with your form ID
    ========================================= */
 
-'use strict';
+'use strict'; 
 
 // ── Config ──────────────────────────────────────────────
 const WEDDING_DATE = new Date('2026-07-11T11:00:00');

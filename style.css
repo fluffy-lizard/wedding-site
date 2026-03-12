@@ -182,7 +182,7 @@ body.dark .nav.scrolled {
   margin-left: auto;
 }
 
-.lang-btn, .dark-toggle {
+.dark-toggle {
   font-size: 0.75rem;
   font-weight: 500;
   letter-spacing: 0.08em;
@@ -193,11 +193,11 @@ body.dark .nav.scrolled {
   transition: all var(--transition);
   white-space: nowrap;
 }
-.nav.scrolled .lang-btn, .nav.scrolled .dark-toggle {
+.nav.scrolled .dark-toggle {
   color: var(--fg-muted);
   border-color: var(--border);
 }
-.lang-btn:hover, .dark-toggle:hover {
+.dark-toggle:hover {
   background: var(--accent);
   color: #fff;
   border-color: var(--accent);
@@ -458,7 +458,9 @@ body.dark .countdown-num { color: #d8e8d0; }
 .btn-primary:active { transform: translateY(0); }
 
 .btn-secondary {
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   padding: 13px 28px;
   background: transparent;
   color: #fff;
@@ -470,6 +472,8 @@ body.dark .countdown-num { color: #d8e8d0; }
   border-radius: var(--radius);
   border: 2px solid rgba(255,255,255,0.5);
   transition: all var(--transition);
+  cursor: pointer;
+  text-decoration: none;
 }
 .btn-secondary:hover {
   background: rgba(255,255,255,0.12);
@@ -477,7 +481,65 @@ body.dark .countdown-num { color: #d8e8d0; }
   transform: translateY(-2px);
 }
 
-.btn-full { width: 100%; justify-content: center; text-align: center; }
+.cal-btns {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.btn-outline {
+  display: inline-block;
+  padding: 13px 28px;
+  background: transparent;
+  color: var(--accent);
+  font-family: var(--font-sans);
+  font-size: 0.8rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  border-radius: var(--radius);
+  border: 2px solid var(--accent);
+  transition: all var(--transition);
+  text-align: center;
+}
+.btn-outline:hover {
+  background: var(--accent);
+  color: #fff;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(74,103,65,0.25);
+}
+
+.map-actions {
+  display: flex;
+  gap: 0;
+}
+.map-actions .map-directions {
+  flex: 1;
+  border-radius: 0;
+  text-align: center;
+}
+.map-actions .map-directions:first-child {
+  border-radius: 0;
+}
+.map-actions .btn-outline {
+  flex: 1;
+  border-radius: 0;
+  border-top: none;
+  border-left: none;
+}
+
+@media (max-width: 600px) {
+  .cal-btns { flex-direction: column; align-items: center; }
+  .cal-btns .btn-secondary { width: 100%; max-width: 280px; text-align: center; }
+  .map-actions { flex-direction: column; }
+  .map-actions .map-directions,
+  .map-actions .btn-outline {
+    border-radius: 0;
+    border-left: 2px solid var(--accent);
+  }
+}
+
 
 /* ===================================================
    GENERAL SECTIONS
@@ -1009,7 +1071,7 @@ body.dark .countdown-num { color: #d8e8d0; }
 @media (max-width: 900px) {
   .nav-links { display: none; }
   .hamburger { display: flex; }
-  .lang-btn, .dark-toggle { font-size: 0.7rem; padding: 5px 9px; }
+  .dark-toggle { font-size: 0.7rem; padding: 5px 9px; }
 
   .about-grid { grid-template-columns: 1fr; gap: 40px; }
   .about-photos { grid-template-columns: 1fr 1fr; }

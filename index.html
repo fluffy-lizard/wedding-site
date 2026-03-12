@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="cs">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Lukáš & Pája – Wedding July 11, 2026 | Kunčina Ves</title>
-  <meta name="description" content="Wedding invitation for Lukáš & Pája – July 11, 2026, Kunčina Ves, Orlické hory, Czech Republic. RSVP and details." />
-  <meta property="og:title" content="Lukáš & Pája – Wedding July 11, 2026" />
-  <meta property="og:description" content="Join us for our wedding in the mountains of Orlické hory." />
+  <title>Lukáš & Pája – Svatba 11. července 2026 | Kunčina Ves</title>
+  <meta name="description" content="Svatební oznámení Lukáše a Páji – 11. července 2026, Chalupa Kunčinka, Kunčina Ves, Orlické hory. Potvrzení účasti a podrobnosti." />
+  <meta property="og:title" content="Lukáš & Pája – Svatba 11. července 2026" />
+  <meta property="og:description" content="Přijďte oslavit naši svatbu v Orlických horách." />
   <meta property="og:type" content="website" />
   <meta name="theme-color" content="#4a6741" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -19,32 +19,31 @@
   <!-- NAV -->
   <header class="nav" role="banner">
     <div class="nav-inner">
-      <a href="#home" class="nav-logo" aria-label="Home">L & P</a>
-      <nav class="nav-links" role="navigation" aria-label="Main navigation">
-        <a href="#home" data-en="Home" data-cs="Úvod">Home</a>
-        <a href="#about" data-en="Our Story" data-cs="Náš příběh">Our Story</a>
-        <a href="#schedule" data-en="Schedule" data-cs="Program">Schedule</a>
-        <a href="#location" data-en="Location" data-cs="Místo">Location</a>
-        <a href="#rsvp" data-en="RSVP" data-cs="Potvrzení">RSVP</a>
-        <a href="#faq" data-en="FAQ" data-cs="FAQ">FAQ</a>
+      <a href="#home" class="nav-logo" aria-label="Úvod">L & P</a>
+      <nav class="nav-links" role="navigation" aria-label="Hlavní navigace">
+        <a href="#home">Úvod</a>
+        <a href="#about">Náš příběh</a>
+        <a href="#schedule">Program</a>
+        <a href="#location">Místo</a>
+        <a href="#rsvp">Potvrzení</a>
+        <a href="#faq">FAQ</a>
       </nav>
       <div class="nav-controls">
-        <button class="lang-btn" id="langToggle" aria-label="Switch language">🇨🇿 CS</button>
-        <button class="dark-toggle" id="darkToggle" aria-label="Toggle dark mode">
+        <button class="dark-toggle" id="darkToggle" aria-label="Přepnout tmavý režim">
           <span class="sun">☀</span><span class="moon">◐</span>
         </button>
-        <button class="hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
+        <button class="hamburger" id="hamburger" aria-label="Otevřít menu" aria-expanded="false">
           <span></span><span></span><span></span>
         </button>
       </div>
     </div>
-    <div class="mobile-menu" id="mobileMenu" role="dialog" aria-label="Mobile navigation">
-      <a href="#home" data-en="Home" data-cs="Úvod">Home</a>
-      <a href="#about" data-en="Our Story" data-cs="Náš příběh">Our Story</a>
-      <a href="#schedule" data-en="Schedule" data-cs="Program">Schedule</a>
-      <a href="#location" data-en="Location" data-cs="Místo">Location</a>
-      <a href="#rsvp" data-en="RSVP" data-cs="Potvrzení">RSVP</a>
-      <a href="#faq" data-en="FAQ" data-cs="FAQ">FAQ</a>
+    <div class="mobile-menu" id="mobileMenu" role="dialog" aria-label="Mobilní navigace">
+      <a href="#home">Úvod</a>
+      <a href="#about">Náš příběh</a>
+      <a href="#schedule">Program</a>
+      <a href="#location">Místo</a>
+      <a href="#rsvp">Potvrzení</a>
+      <a href="#faq">FAQ</a>
     </div>
   </header>
 
@@ -69,24 +68,17 @@
             <stop offset="0%" stop-color="var(--forest-top)" />
             <stop offset="100%" stop-color="var(--forest-bot)" />
           </linearGradient>
-          <filter id="blur1">
-            <feGaussianBlur stdDeviation="2" />
-          </filter>
+          <filter id="blur1"><feGaussianBlur stdDeviation="2" /></filter>
         </defs>
         <rect width="1440" height="600" fill="url(#skyGrad)" />
-        <!-- Far mountains -->
         <path d="M0 400 L120 220 L240 300 L360 160 L480 280 L600 180 L720 260 L840 140 L960 240 L1080 180 L1200 260 L1320 200 L1440 280 L1440 600 L0 600Z" fill="url(#mtnGrad1)" filter="url(#blur1)" opacity="0.6"/>
-        <!-- Snow caps -->
         <path d="M360 160 L400 195 L320 195Z" fill="white" opacity="0.7"/>
         <path d="M840 140 L875 175 L805 175Z" fill="white" opacity="0.65"/>
         <path d="M600 180 L630 205 L570 205Z" fill="white" opacity="0.55"/>
-        <!-- Near mountains -->
         <path d="M0 500 L160 300 L300 390 L440 260 L580 360 L720 280 L860 350 L1000 270 L1140 360 L1280 290 L1440 380 L1440 600 L0 600Z" fill="url(#mtnGrad2)" />
-        <!-- Forest treeline -->
         <g fill="url(#forestGrad)">
           <path d="M0 560 Q20 530 40 560 Q60 530 80 560 Q100 520 120 555 Q140 525 160 555 Q180 530 200 558 Q230 520 260 555 Q290 525 320 558 Q350 520 380 555 Q410 535 440 558 Q460 520 490 555 Q510 535 540 558 Q565 520 590 555 Q610 540 640 558 Q665 520 695 555 Q715 535 745 558 Q770 520 800 555 Q830 535 865 558 Q890 520 920 555 Q945 535 975 558 Q1000 520 1030 555 Q1060 530 1095 558 Q1120 520 1155 555 Q1175 535 1210 558 Q1240 520 1275 555 Q1300 535 1335 558 Q1365 520 1405 555 L1440 558 L1440 600 L0 600Z"/>
         </g>
-        <!-- Subtle birds -->
         <g fill="none" stroke="var(--bird-color)" stroke-width="1.5" opacity="0.5">
           <path d="M300 120 Q310 114 320 120 Q330 114 340 120"/>
           <path d="M850 90 Q858 85 866 90 Q874 85 882 90"/>
@@ -96,13 +88,13 @@
     </div>
 
     <div class="hero-content">
-      <p class="hero-pre" data-en="You are invited to celebrate" data-cs="Jste srdečně zváni na oslavу">You are invited to celebrate</p>
+      <p class="hero-pre">Jste srdečně zváni na oslavu</p>
       <h1 id="heroHeading" class="hero-names">Lukáš <span class="ampersand">&amp;</span> Pája</h1>
       <div class="hero-divider" aria-hidden="true"><span></span><svg width="24" height="24" viewBox="0 0 24 24"><path d="M12 2C9 2 7 5 7 8c0 4 5 8 5 12 0-4 5-8 5-12 0-3-2-6-5-6z" fill="currentColor"/></svg><span></span></div>
-      <p class="hero-date" data-en="11 July 2026 · Kunčina Ves, Orlické hory" data-cs="11. července 2026 · Kunčina Ves, Orlické hory">11 July 2026 · Kunčina Ves, Orlické hory</p>
+      <p class="hero-date">11. července 2026 · Kunčina Ves, Orlické hory</p>
 
-      <!-- Placeholder photo -->
-      <div class="hero-photo-frame" aria-label="Wedding couple photo placeholder">
+      <!-- Placeholder foto -->
+      <div class="hero-photo-frame" aria-label="Místo pro svatební fotografii">
         <div class="hero-photo-inner">
           <svg viewBox="0 0 400 300" aria-hidden="true">
             <defs>
@@ -113,75 +105,77 @@
               </linearGradient>
             </defs>
             <rect width="400" height="300" fill="url(#photoGrad)" rx="4"/>
-            <!-- Mountains in placeholder -->
             <path d="M0 220 L100 120 L180 170 L260 100 L360 150 L400 130 L400 300 L0 300Z" fill="rgba(255,255,255,0.12)"/>
             <path d="M0 250 L80 180 L140 210 L220 160 L300 200 L380 175 L400 185 L400 300 L0 300Z" fill="rgba(255,255,255,0.08)"/>
-            <!-- Couple silhouettes -->
             <ellipse cx="175" cy="185" rx="12" ry="14" fill="rgba(60,50,40,0.55)"/>
             <rect x="163" y="197" width="24" height="40" rx="6" fill="rgba(60,50,40,0.55)"/>
             <ellipse cx="225" cy="183" rx="11" ry="13" fill="rgba(60,50,40,0.50)"/>
             <rect x="213" y="194" width="22" height="42" rx="5" fill="rgba(60,50,40,0.50)"/>
-            <!-- Join hands line -->
             <path d="M187 217 Q200 222 213 217" stroke="rgba(60,50,40,0.4)" stroke-width="2" fill="none"/>
-            <text x="200" y="270" text-anchor="middle" fill="rgba(255,255,255,0.5)" font-family="Cormorant Garamond, serif" font-size="13" font-style="italic">photo placeholder</text>
+            <text x="200" y="270" text-anchor="middle" fill="rgba(255,255,255,0.5)" font-family="Cormorant Garamond, serif" font-size="13" font-style="italic">místo pro fotografii</text>
           </svg>
         </div>
       </div>
 
-      <!-- Countdown -->
-      <div class="countdown" role="timer" aria-label="Countdown to wedding">
+      <!-- Odpočet -->
+      <div class="countdown" role="timer" aria-label="Odpočet do svatby">
         <div class="countdown-item">
           <span class="countdown-num" id="cd-days">--</span>
-          <span class="countdown-label" data-en="Days" data-cs="Dnů">Days</span>
+          <span class="countdown-label">Dnů</span>
         </div>
         <div class="countdown-sep" aria-hidden="true">:</div>
         <div class="countdown-item">
           <span class="countdown-num" id="cd-hours">--</span>
-          <span class="countdown-label" data-en="Hours" data-cs="Hodin">Hours</span>
+          <span class="countdown-label">Hodin</span>
         </div>
         <div class="countdown-sep" aria-hidden="true">:</div>
         <div class="countdown-item">
           <span class="countdown-num" id="cd-mins">--</span>
-          <span class="countdown-label" data-en="Minutes" data-cs="Minut">Minutes</span>
+          <span class="countdown-label">Minut</span>
         </div>
         <div class="countdown-sep" aria-hidden="true">:</div>
         <div class="countdown-item">
           <span class="countdown-num" id="cd-secs">--</span>
-          <span class="countdown-label" data-en="Seconds" data-cs="Sekund">Seconds</span>
+          <span class="countdown-label">Sekund</span>
         </div>
       </div>
 
       <div class="hero-cta">
-        <a href="#rsvp" class="btn-primary" data-en="RSVP Now" data-cs="Potvrdit účast">RSVP Now</a>
-        <button class="btn-secondary" id="addCalBtn" data-en="Add to Calendar" data-cs="Přidat do kalendáře">Add to Calendar</button>
+        <a href="#rsvp" class="btn-primary">Potvrdit účast</a>
+        <div class="cal-btns">
+          <a class="btn-secondary"
+             href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Svadba+Luka%C5%A1+%26+P%C3%A1ja+%F0%9F%92%8D&dates=20260711T090000Z%2F20260711T210000Z&details=Ob%C5%99ad+v+11%3A00+(venku+za+hezkého+po%C4%8Das%C3%AD).+Ob%C4%9Bd+ve+12%3A00.+Bez+zv%C3%AD%C5%99at.+Parkujte+na+p%C5%99ilehl%C3%A9+louce.&location=Chalupa+Kun%C4%8Dinka%2C+Kun%C4%8Dina+Ves%2C+GPS+50.2236725%2C16.3832923&sf=true&output=xml"
+             target="_blank"
+             rel="noopener noreferrer"
+          >📅 Google Kalendář</a>
+          <button class="btn-secondary" id="addCalBtn">⬇ Stáhnout ICS</button>
+        </div>
       </div>
     </div>
-    <div class="scroll-hint" aria-hidden="true">
-      <span></span>
-    </div>
+    <div class="scroll-hint" aria-hidden="true"><span></span></div>
   </section>
 
-  <!-- ABOUT -->
+  <!-- O NÁS -->
   <section id="about" class="section about" aria-labelledby="aboutHeading">
     <div class="container">
-      <div class="section-label" data-en="Our Story" data-cs="Náš příběh">Our Story</div>
-      <h2 id="aboutHeading" class="section-title" data-en="Two adventurers,<br>one path" data-cs="Dva dobrodruzi,<br>jedna cesta">Two adventurers,<br>one path</h2>
+      <div class="section-label">Náš příběh</div>
+      <h2 id="aboutHeading" class="section-title">Dva dobrodruzi,<br>jedna cesta</h2>
       <div class="about-grid">
         <div class="about-text">
-          <p data-en="Lukáš and Pája found each other the way mountains find climbers — inevitably. Their shared world is built from steep trails in the Orlické hory, ridge-top bivouacs in the Alps, predawn ski touring starts, and the quiet satisfaction of a summit reached together." data-cs="Lukáš a Pája se našli tak, jak hory nacházejí horolezce — nevyhnutelně. Jejich společný svět je postaven z prudkých stezek v Orlických horách, bivakování na alpských hřebenech, ranních startů na skialpinistické výlety a tichého uspokojení z dosažených vrcholů.">Lukáš and Pája found each other the way mountains find climbers — inevitably. Their shared world is built from steep trails in the Orlické hory, ridge-top bivouacs in the Alps, predawn ski touring starts, and the quiet satisfaction of a summit reached together.</p>
-          <p data-en="Whether they're clipping into rock faces, pedalling into headwinds on loaded touring bikes, or simply watching evening light change the colour of a ridge, they move through the world as a team — curious, unhurried, and completely at home in wild places." data-cs="Ať už lezou po skalách, šlapou do protivětru na naložených kolech nebo jen sledují, jak večerní světlo mění barvu hřebene, pohybují se světem jako tým — zvídaví, bez spěchu a zcela doma v divočině.">Whether they're clipping into rock faces, pedalling into headwinds on loaded touring bikes, or simply watching evening light change the colour of a ridge, they move through the world as a team — curious, unhurried, and completely at home in wild places.</p>
-          <p data-en="On July 11th, they'll begin the greatest adventure yet — surrounded by the forested hills they love most." data-cs="11. července začnou největší dobrodružství ze všech — obklopeni lesnatými kopci, které mají nejraději.">On July 11th, they'll begin the greatest adventure yet — surrounded by the forested hills they love most.</p>
-          <div class="hobby-tags" aria-label="Shared hobbies">
-            <span data-en="🚴 Cycling" data-cs="🚴 Cyklistika">🚴 Cycling</span>
-            <span data-en="🥾 Hiking" data-cs="🥾 Turistika">🥾 Hiking</span>
-            <span data-en="🧗 Climbing" data-cs="🧗 Lezení">🧗 Climbing</span>
-            <span data-en="⛷ Skiing" data-cs="⛷ Lyžování">⛷ Skiing</span>
-            <span data-en="🏔 Ski Touring" data-cs="🏔 Skialpinismus">🏔 Ski Touring</span>
-            <span data-en="🌲 Orlické hory" data-cs="🌲 Orlické hory">🌲 Orlické hory</span>
+          <p>Lukáš a Pája se našli tak, jak hory nacházejí horolezce — nevyhnutelně. Jejich společný svět je postaven z prudkých stezek v Orlických horách, bivakování na alpských hřebenech, ranních startů na skialpinistické výlety a tichého uspokojení z dosažených vrcholů.</p>
+          <p>Ať už lezou po skalách, šlapou do protivětru na naložených kolech nebo jen sledují, jak večerní světlo mění barvu hřebene, pohybují se světem jako tým — zvídaví, bez spěchu a zcela doma v divočině.</p>
+          <p>11. července začnou největší dobrodružství ze všech — obklopeni lesnatými kopci, které mají nejraději.</p>
+          <div class="hobby-tags" aria-label="Společné zájmy">
+            <span>🚴 Cyklistika</span>
+            <span>🥾 Turistika</span>
+            <span>🧗 Lezení</span>
+            <span>⛷ Lyžování</span>
+            <span>🏔 Skialpinismus</span>
+            <span>🌲 Orlické hory</span>
           </div>
         </div>
         <div class="about-photos">
-          <div class="about-photo about-photo-1" aria-label="Couple photo 1 placeholder">
+          <div class="about-photo about-photo-1" aria-label="Místo pro fotografii páru 1">
             <div class="photo-placeholder">
               <svg viewBox="0 0 260 340" aria-hidden="true">
                 <defs>
@@ -194,11 +188,11 @@
                 <path d="M0 240 L70 170 L130 200 L190 150 L260 180 L260 340 L0 340Z" fill="rgba(255,255,255,0.1)"/>
                 <ellipse cx="130" cy="145" rx="28" ry="30" fill="rgba(60,50,40,0.4)"/>
                 <path d="M102 173 Q130 195 158 173 L162 290 L98 290Z" fill="rgba(60,50,40,0.4)"/>
-                <text x="130" y="320" text-anchor="middle" fill="rgba(255,255,255,0.45)" font-family="Jost,sans-serif" font-size="11">photo</text>
+                <text x="130" y="320" text-anchor="middle" fill="rgba(255,255,255,0.45)" font-family="Jost,sans-serif" font-size="11">fotografie</text>
               </svg>
             </div>
           </div>
-          <div class="about-photo about-photo-2" aria-label="Couple photo 2 placeholder">
+          <div class="about-photo about-photo-2" aria-label="Místo pro fotografii páru 2">
             <div class="photo-placeholder">
               <svg viewBox="0 0 260 200" aria-hidden="true">
                 <defs>
@@ -209,7 +203,7 @@
                 </defs>
                 <rect width="260" height="200" fill="url(#ph2)" rx="3"/>
                 <path d="M0 130 L50 80 L110 110 L160 70 L220 95 L260 80 L260 200 L0 200Z" fill="rgba(255,255,255,0.12)"/>
-                <text x="130" y="185" text-anchor="middle" fill="rgba(255,255,255,0.45)" font-family="Jost,sans-serif" font-size="11">photo</text>
+                <text x="130" y="185" text-anchor="middle" fill="rgba(255,255,255,0.45)" font-family="Jost,sans-serif" font-size="11">fotografie</text>
               </svg>
             </div>
           </div>
@@ -218,11 +212,11 @@
     </div>
   </section>
 
-  <!-- SCHEDULE -->
+  <!-- PROGRAM -->
   <section id="schedule" class="section schedule" aria-labelledby="scheduleHeading">
     <div class="container">
-      <div class="section-label" data-en="The Day" data-cs="Program dne">The Day</div>
-      <h2 id="scheduleHeading" class="section-title" data-en="Schedule" data-cs="Harmonogram">Schedule</h2>
+      <div class="section-label">Program dne</div>
+      <h2 id="scheduleHeading" class="section-title">Harmonogram</h2>
       <div class="timeline" role="list">
 
         <div class="timeline-item" role="listitem">
@@ -231,9 +225,9 @@
             <svg viewBox="0 0 20 20"><circle cx="10" cy="10" r="6" fill="currentColor"/></svg>
           </div>
           <div class="timeline-content">
-            <h3 data-en="Wedding Ceremony" data-cs="Obřad">Wedding Ceremony</h3>
-            <p data-en="Outdoors in nature — weather permitting. Please keep this moment sacred: no guest photography during the ceremony." data-cs="Venkovní obřad v přírodě — pokud počasí dovolí. Prosíme, uchovejte tento okamžik jako posvátný: během obřadu nevyužívejte fotografické zařízení.">Outdoors in nature — weather permitting. Please keep this moment sacred: no guest photography during the ceremony.</p>
-            <span class="tag" data-en="📷 No photos by guests" data-cs="📷 Prosíme, nefotografujte">📷 No photos by guests</span>
+            <h3>Obřad</h3>
+            <p>Venkovní obřad v přírodě — pokud počasí dovolí. Prosíme, uchovejte tento okamžik jako posvátný: během obřadu nevyužívejte fotografické zařízení.</p>
+            <span class="tag">📷 Prosíme, nefotografujte</span>
           </div>
         </div>
 
@@ -243,42 +237,42 @@
             <svg viewBox="0 0 20 20"><circle cx="10" cy="10" r="6" fill="currentColor"/></svg>
           </div>
           <div class="timeline-content">
-            <h3 data-en="Lunch" data-cs="Oběd">Lunch</h3>
-            <p data-en="Celebratory lunch together. Please let us know of any dietary requirements in your RSVP." data-cs="Slavnostní oběd. Prosíme uveďte případné dietní požadavky při potvrzení účasti.">Celebratory lunch together. Please let us know of any dietary requirements in your RSVP.</p>
+            <h3>Oběd</h3>
+            <p>Slavnostní oběd. Prosíme uveďte případné dietní požadavky při potvrzení účasti.</p>
           </div>
         </div>
 
         <div class="timeline-item tbd" role="listitem">
-          <div class="timeline-time tbd-time" data-en="Time TBD" data-cs="Čas upřesníme">Time TBD</div>
+          <div class="timeline-time tbd-time">Čas upřesníme</div>
           <div class="timeline-dot" aria-hidden="true">
             <svg viewBox="0 0 20 20"><circle cx="10" cy="10" r="6" fill="none" stroke="currentColor" stroke-width="2"/></svg>
           </div>
           <div class="timeline-content">
-            <h3 data-en="Wedding Photography" data-cs="Svatební focení">Wedding Photography</h3>
-            <p data-en="Official couple and group photos in and around the venue." data-cs="Oficiální focení páru a skupinové fotografie.">Official couple and group photos in and around the venue.</p>
+            <h3>Svatební focení</h3>
+            <p>Oficiální focení páru a skupinové fotografie.</p>
           </div>
         </div>
 
         <div class="timeline-item tbd" role="listitem">
-          <div class="timeline-time tbd-time" data-en="Time TBD" data-cs="Čas upřesníme">Time TBD</div>
+          <div class="timeline-time tbd-time">Čas upřesníme</div>
           <div class="timeline-dot" aria-hidden="true">
             <svg viewBox="0 0 20 20"><circle cx="10" cy="10" r="6" fill="none" stroke="currentColor" stroke-width="2"/></svg>
           </div>
           <div class="timeline-content">
-            <h3 data-en="Wedding Cake" data-cs="Krájení dortu">Wedding Cake</h3>
-            <p data-en="Cutting of the cake and sweet celebration." data-cs="Krájení dortu a sladká oslava.">Cutting of the cake and sweet celebration.</p>
+            <h3>Krájení dortu</h3>
+            <p>Krájení dortu a sladká oslava.</p>
           </div>
         </div>
 
         <div class="timeline-item tbd" role="listitem">
-          <div class="timeline-time tbd-time" data-en="Time TBD" data-cs="Čas upřesníme">Time TBD</div>
+          <div class="timeline-time tbd-time">Čas upřesníme</div>
           <div class="timeline-dot" aria-hidden="true">
             <svg viewBox="0 0 20 20"><circle cx="10" cy="10" r="6" fill="none" stroke="currentColor" stroke-width="2"/></svg>
           </div>
           <div class="timeline-content">
-            <h3 data-en="Activities & Celebration" data-cs="Aktivity a oslava">Activities & Celebration</h3>
-            <p data-en="Fun, games, and festivities. Details to be announced — stay tuned!" data-cs="Zábava, hry a slavení. Podrobnosti budou upřesněny — sledujte nás!">Fun, games, and festivities. Details to be announced — stay tuned!</p>
-            <span class="tag" data-en="🎉 More details coming soon" data-cs="🎉 Brzy více informací">🎉 More details coming soon</span>
+            <h3>Aktivity a oslava</h3>
+            <p>Zábava, hry a slavení. Podrobnosti budou upřesněny — sledujte nás!</p>
+            <span class="tag">🎉 Brzy více informací</span>
           </div>
         </div>
 
@@ -286,116 +280,132 @@
     </div>
   </section>
 
-  <!-- LOCATION -->
+  <!-- MÍSTO -->
   <section id="location" class="section location" aria-labelledby="locationHeading">
     <div class="container">
-      <div class="section-label" data-en="Getting There" data-cs="Místo a doprava">Getting There</div>
-      <h2 id="locationHeading" class="section-title" data-en="Kunčina Ves,<br>Orlické hory" data-cs="Kunčina Ves,<br>Orlické hory">Kunčina Ves,<br>Orlické hory</h2>
+      <div class="section-label">Místo a doprava</div>
+      <h2 id="locationHeading" class="section-title">Chalupa Kunčinka,<br>Kunčina Ves</h2>
       <div class="location-grid">
         <div class="location-info">
 
           <div class="info-card">
+            <div class="info-icon" aria-hidden="true">📍</div>
+            <div>
+              <h3>Adresa</h3>
+              <p>Chalupa Kunčinka<br>Kunčina Ves ev.č. 18<br>516 01 Zdobnice<br>Orlické hory</p>
+            </div>
+          </div>
+
+          <div class="info-card">
             <div class="info-icon" aria-hidden="true">🚗</div>
             <div>
-              <h3 data-en="Getting There" data-cs="Jak se dostat">Getting There</h3>
-              <p data-en="There is no organised transport. Please make your own way to Kunčina Ves. Park on the nearby meadow — signposted on arrival." data-cs="Organizovaná doprava není zajištěna. Prosíme, dorazte vlastní dopravou do Kunčiny Vsi. Parkujte na přilehlé louce — po příjezdu bude označeno.">There is no organised transport. Please make your own way to Kunčina Ves. Park on the nearby meadow — signposted on arrival.</p>
+              <h3>Jak se dostat</h3>
+              <p>Organizovaná doprava není zajištěna. Prosíme, dorazte vlastní dopravou. Parkujte na přilehlé louce — po příjezdu bude označeno.</p>
             </div>
           </div>
 
           <div class="info-card">
             <div class="info-icon" aria-hidden="true">🏡</div>
             <div>
-              <h3 data-en="Accommodation" data-cs="Ubytování">Accommodation</h3>
-              <p data-en="We have rented a mansion on-site. Accommodation is included — primarily reserved for family, with limited spots. Friends are warmly welcome to camp in tents or sleep in their cars on the meadow." data-cs="Pronajali jsme usedlost přímo na místě. Ubytování je zajištěno — primárně pro rodinné příslušníky, s omezenou kapacitou. Přátelé jsou srdečně vítáni stanovat nebo přespat v autě na louce.">We have rented a mansion on-site. Accommodation is included — primarily reserved for family, with limited spots. Friends are warmly welcome to camp in tents or sleep in their cars on the meadow.</p>
+              <h3>Ubytování</h3>
+              <p>Pronajali jsme chalupu přímo na místě. Ubytování je zajištěno — primárně pro rodinné příslušníky, s omezenou kapacitou. Přátelé jsou srdečně vítáni stanovat nebo přespat v autě na louce.</p>
             </div>
           </div>
 
           <div class="info-card">
             <div class="info-icon" aria-hidden="true">📅</div>
             <div>
-              <h3 data-en="Checkout" data-cs="Odjezd">Checkout</h3>
-              <p data-en="Please return the venue by Sunday 2:00 PM. You're welcome to leave at any time after the celebrations." data-cs="Prosíme, opusťte areál v neděli do 14:00. Odjet můžete kdykoli po oslavách.">Please return the venue by Sunday 2:00 PM. You're welcome to leave at any time after the celebrations.</p>
+              <h3>Odjezd</h3>
+              <p>Prosíme, opusťte areál v neděli do 14:00. Odjet můžete kdykoli po oslavách.</p>
             </div>
           </div>
 
           <div class="info-card info-card-warning">
             <div class="info-icon" aria-hidden="true">🐾</div>
             <div>
-              <h3 data-en="No Animals Please" data-cs="Zvířata prosíme doma">No Animals Please</h3>
-              <p data-en="We love animals, but this is a pet-free event. Please leave your four-legged friends at home." data-cs="Milujeme zvířata, ale tato akce je bez domácích mazlíčků. Prosíme, nechte své čtyřnohé přátele doma.">We love animals, but this is a pet-free event. Please leave your four-legged friends at home.</p>
+              <h3>Zvířata prosíme doma</h3>
+              <p>Milujeme zvířata, ale tato akce je bez domácích mazlíčků. Prosíme, nechte své čtyřnohé přátele doma.</p>
             </div>
           </div>
 
         </div>
         <div class="map-wrapper">
+          <!-- GPS dle mapy.com: 50.2236725N, 16.3832923E -->
           <iframe
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2555.1234!2d16.3832923!3d50.2236725!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x470dc89c8f3e0001%3A0x0!2sKun%C4%8Dina+Ves%2C+Czech+Republic!5e0!3m2!1sen!2scz!4v1710000000000!5m2!1sen!2scz"
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d500!2d16.3832923!3d50.2236725!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNTDCsDEzJzI1LjIiTiAxNsKwMjMnMDcuOSJF!5e1!3m2!1scs!2scz!4v1710000000002!5m2!1scs!2scz"
             width="100%"
             height="420"
             style="border:0;"
             allowfullscreen=""
             loading="lazy"
             referrerpolicy="no-referrer-when-downgrade"
-            title="Wedding location – Kunčina Ves, Orlické hory"
-            aria-label="Google Maps showing wedding location in Kunčina Ves"
+            title="Místo konání svatby – Chalupa Kunčinka, Kunčina Ves"
+            aria-label="Mapa s místem konání svatby v Kunčině Vsi"
           ></iframe>
-          <a
-            href="https://www.google.com/maps/dir/?api=1&destination=50.2236725,16.3832923"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="btn-primary map-directions"
-            data-en="Get Directions ↗" data-cs="Navigovat ↗"
-          >Get Directions ↗</a>
+          <div class="map-actions">
+            <a
+              href="https://www.google.com/maps/dir/?api=1&destination=50.2236725,16.3832923"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="btn-primary map-directions"
+            >🗺 Navigovat ↗</a>
+            <a
+              href="https://mapy.com/cs/turisticka?source=base&id=2074659&x=16.3832923&y=50.2236725&z=18"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="btn-outline map-directions"
+            >📍 Mapy.cz ↗</a>
+          </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- RSVP -->
+  <!-- POTVRZENÍ ÚČASTI -->
   <section id="rsvp" class="section rsvp" aria-labelledby="rsvpHeading">
     <div class="rsvp-bg" aria-hidden="true"></div>
     <div class="container">
-      <div class="section-label" data-en="Kindly Reply" data-cs="Potvrzení účasti">Kindly Reply</div>
-      <h2 id="rsvpHeading" class="section-title" data-en="RSVP" data-cs="Potvrzení účasti">RSVP</h2>
-      <p class="rsvp-subtitle" data-en="Please let us know by June 1, 2026 whether you can join us." data-cs="Prosíme, potvrďte svoji účast do 1. června 2026.">Please let us know by June 1, 2026 whether you can join us.</p>
+      <div class="section-label">Potvrzení účasti</div>
+      <h2 id="rsvpHeading" class="section-title">Potvrzení účasti</h2>
+      <p class="rsvp-subtitle">Prosíme, potvrďte svoji účast do 1. června 2026.</p>
 
       <div class="rsvp-form-wrap">
         <div id="rsvpForm">
           <div class="form-group">
-            <label for="rsvpName" data-en="Your Name *" data-cs="Vaše jméno *">Your Name *</label>
-            <input type="text" id="rsvpName" name="name" required autocomplete="name" placeholder="Lukáš Novák" />
+            <label for="rsvpName">Vaše jméno *</label>
+            <input type="text" id="rsvpName" name="name" required autocomplete="name" placeholder="Jana Nováková" />
           </div>
           <div class="form-group form-group-row">
             <div class="form-group-inner">
-              <label data-en="Will you attend? *" data-cs="Přijdete? *">Will you attend? *</label>
-              <div class="radio-group" role="radiogroup" aria-label="Attendance">
+              <label>Přijdete? *</label>
+              <div class="radio-group" role="radiogroup" aria-label="Účast">
                 <label class="radio-label">
                   <input type="radio" name="attending" value="yes" required />
-                  <span data-en="Yes, I'll be there! 🎉" data-cs="Ano, přijdu! 🎉">Yes, I'll be there! 🎉</span>
+                  <span>Ano, přijdu! 🎉</span>
                 </label>
                 <label class="radio-label">
                   <input type="radio" name="attending" value="no" />
-                  <span data-en="Sadly, I can't make it" data-cs="Bohužel se nezúčastním">Sadly, I can't make it</span>
+                  <span>Bohužel se nezúčastním</span>
                 </label>
               </div>
             </div>
           </div>
           <div class="form-group">
-            <label for="rsvpGuests" data-en="Number of guests (including yourself)" data-cs="Počet hostů (včetně vás)">Number of guests (including yourself)</label>
+            <label for="rsvpGuests">Počet hostů (včetně vás)</label>
             <input type="number" id="rsvpGuests" name="guests" min="1" max="10" placeholder="1" />
           </div>
           <div class="form-group">
-            <label for="rsvpDiet" data-en="Dietary needs / Message" data-cs="Dietní požadavky / Vzkaz">Dietary needs / Message</label>
-            <textarea id="rsvpDiet" name="message" rows="4" placeholder="Vegetarian, gluten-free, or any message to the couple…"></textarea>
+            <label for="rsvpDiet">Dietní požadavky / Vzkaz</label>
+            <textarea id="rsvpDiet" name="message" rows="4" placeholder="Vegetarián, bezlepkové… nebo jen vzkaz novomanželům"></textarea>
           </div>
-          <button type="button" class="btn-primary btn-full" id="rsvpSubmit" data-en="Send RSVP" data-cs="Odeslat potvrzení">Send RSVP</button>
-          <p class="form-note" data-en="🐾 Reminder: No animals at the venue." data-cs="🐾 Připomínka: Zvířata na místo konání prosíme nepřivádějte.">🐾 Reminder: No animals at the venue.</p>
+          <button type="button" class="btn-primary btn-full" id="rsvpSubmit">Odeslat potvrzení</button>
+          <p class="form-note">🐾 Připomínka: Zvířata na místo konání prosíme nepřivádějte.</p>
         </div>
 
         <div id="rsvpSuccess" class="rsvp-success" hidden aria-live="polite">
           <div class="success-icon" aria-hidden="true">🌿</div>
-          <h3 data-en="Thank you!" data-cs="Děkujeme!">Thank you!</h3>
-          <p id="successMsg" data-en="We've received your RSVP. See you in the mountains! 🏔" data-cs="Vaše potvrzení bylo přijato. Těšíme se na vás v horách! 🏔">We've received your RSVP. See you in the mountains! 🏔</p>
+          <h3>Děkujeme!</h3>
+          <p>Vaše potvrzení bylo přijato. Těšíme se na vás v horách! 🏔</p>
         </div>
       </div>
     </div>
@@ -404,38 +414,38 @@
   <!-- FAQ -->
   <section id="faq" class="section faq" aria-labelledby="faqHeading">
     <div class="container">
-      <div class="section-label" data-en="Questions" data-cs="Otázky">Questions</div>
-      <h2 id="faqHeading" class="section-title" data-en="FAQ" data-cs="Časté dotazy">FAQ</h2>
+      <div class="section-label">Otázky</div>
+      <h2 id="faqHeading" class="section-title">Časté dotazy</h2>
       <div class="faq-list" role="list">
 
         <div class="faq-item" role="listitem">
-          <button class="faq-q" aria-expanded="false" data-en="Can I take photos during the ceremony?" data-cs="Mohu fotit během obřadu?">Can I take photos during the ceremony?</button>
-          <div class="faq-a" hidden data-en="Please put your phones and cameras away during the ceremony — we've hired a professional photographer and would love for you to be fully present in the moment with us. Photography is welcome during all other parts of the day!" data-cs="Prosíme, odložte telefony a fotoaparáty během obřadu — najali jsme profesionálního fotografa a chtěli bychom, abyste byli s námi plně přítomni. Fotografování je vítáno ve všech ostatních částech dne!">Please put your phones and cameras away during the ceremony — we've hired a professional photographer and would love for you to be fully present in the moment with us. Photography is welcome during all other parts of the day!</div>
+          <button class="faq-q" aria-expanded="false">Mohu fotit během obřadu?</button>
+          <div class="faq-a" hidden>Prosíme, odložte telefony a fotoaparáty během obřadu — najali jsme profesionálního fotografa a chtěli bychom, abyste byli s námi plně přítomni. Fotografování je vítáno ve všech ostatních částech dne!</div>
         </div>
 
         <div class="faq-item" role="listitem">
-          <button class="faq-q" aria-expanded="false" data-en="Can I bring my pet?" data-cs="Mohu přivést svého mazlíčka?">Can I bring my pet?</button>
-          <div class="faq-a" hidden data-en="We love animals dearly, but the wedding is a pet-free event. Please arrange care for your pets at home. Thank you for understanding!" data-cs="Zvířata milujeme, ale naše svatba je akcí bez domácích mazlíčků. Prosíme, zajistěte svým zvířatům péči doma. Děkujeme za pochopení!">We love animals dearly, but the wedding is a pet-free event. Please arrange care for your pets at home. Thank you for understanding!</div>
+          <button class="faq-q" aria-expanded="false">Mohu přivést svého mazlíčka?</button>
+          <div class="faq-a" hidden>Zvířata milujeme, ale naše svatba je akcí bez domácích mazlíčků. Prosíme, zajistěte svým zvířatům péči doma. Děkujeme za pochopení!</div>
         </div>
 
         <div class="faq-item" role="listitem">
-          <button class="faq-q" aria-expanded="false" data-en="Is accommodation included?" data-cs="Je ubytování zajištěno?">Is accommodation included?</button>
-          <div class="faq-a" hidden data-en="We have rented a venue with sleeping capacity, primarily for family members, with limited availability. Friends are very welcome to set up tents or sleep in their cars on the meadow. Please mention in your RSVP if you need information about accommodation options." data-cs="Pronajali jsme areál s ubytovacími kapacitami, primárně pro rodinné příslušníky, s omezenou dostupností. Přátelé jsou srdečně vítáni stanovat nebo přespat v autě na louce. Pokud potřebujete informace o ubytování, uveďte to v potvrzení účasti.">We have rented a venue with sleeping capacity, primarily for family members, with limited availability. Friends are very welcome to set up tents or sleep in their cars on the meadow. Please mention in your RSVP if you need information about accommodation options.</div>
+          <button class="faq-q" aria-expanded="false">Je ubytování zajištěno?</button>
+          <div class="faq-a" hidden>Pronajali jsme chalupu s ubytovacími kapacitami, primárně pro rodinné příslušníky, s omezenou dostupností. Přátelé jsou srdečně vítáni stanovat nebo přespat v autě na louce. Pokud potřebujete informace o ubytování, uveďte to v potvrzení účasti.</div>
         </div>
 
         <div class="faq-item" role="listitem">
-          <button class="faq-q" aria-expanded="false" data-en="Where do I park?" data-cs="Kde se parkuje?">Where do I park?</button>
-          <div class="faq-a" hidden data-en="Parking is available on the meadow near the venue. You'll see signs when you arrive. Please drive carefully on the access road." data-cs="Parkování je k dispozici na louce u místa konání. Značení uvidíte po příjezdu. Prosíme, jeďte opatrně po přístupové cestě.">Parking is available on the meadow near the venue. You'll see signs when you arrive. Please drive carefully on the access road.</div>
+          <button class="faq-q" aria-expanded="false">Kde se parkuje?</button>
+          <div class="faq-a" hidden>Parkování je k dispozici na louce u místa konání. Značení uvidíte po příjezdu. Prosíme, jeďte opatrně po přístupové cestě.</div>
         </div>
 
         <div class="faq-item" role="listitem">
-          <button class="faq-q" aria-expanded="false" data-en="What should I wear?" data-cs="Jak se mám obléknout?">What should I wear?</button>
-          <div class="faq-a" hidden data-en="The ceremony and lunch are elegant but relaxed — think 'smart casual in the mountains'. The venue is outdoors (weather permitting), so practical footwear is strongly advised. Heels may struggle on grass!" data-cs="Obřad a oběd jsou elegantní, ale uvolněné — myslete na „smart casual v horách". Místo konání je venkovní (pokud počasí dovolí), takže praktická obuv je silně doporučena. Podpatky mohou mít problém na trávníku!">The ceremony and lunch are elegant but relaxed — think 'smart casual in the mountains'. The venue is outdoors (weather permitting), so practical footwear is strongly advised. Heels may struggle on grass!</div>
+          <button class="faq-q" aria-expanded="false">Jak se mám obléknout?</button>
+          <div class="faq-a" hidden>Obřad a oběd jsou elegantní, ale uvolněné — myslete na „smart casual v horách". Místo konání je venkovní (pokud počasí dovolí), takže praktická obuv je silně doporučena. Podpatky mohou mít problém na trávníku!</div>
         </div>
 
         <div class="faq-item" role="listitem">
-          <button class="faq-q" aria-expanded="false" data-en="When should I leave?" data-cs="Kdy mám odjet?">When should I leave?</button>
-          <div class="faq-a" hidden data-en="The venue must be vacated by Sunday 2:00 PM. You are welcome to leave at any time after the celebration. There is no set end time for the festivities." data-cs="Areál musí být vyklizen do neděle ve 14:00. Odjet můžete kdykoli po oslavách. Oslavy nemají pevný čas ukončení.">The venue must be vacated by Sunday 2:00 PM. You are welcome to leave at any time after the celebration. There is no set end time for the festivities.</div>
+          <button class="faq-q" aria-expanded="false">Kdy mám odjet?</button>
+          <div class="faq-a" hidden>Areál musí být vyklizen do neděle ve 14:00. Odjet můžete kdykoli po oslavách. Oslavy nemají pevný čas ukončení.</div>
         </div>
 
       </div>
@@ -446,36 +456,33 @@
   <footer class="footer" role="contentinfo">
     <div class="container">
       <p class="footer-names">Lukáš <span class="ampersand">&amp;</span> Pája</p>
-      <p class="footer-date" data-en="11 July 2026 · Kunčina Ves, Orlické hory" data-cs="11. července 2026 · Kunčina Ves, Orlické hory">11 July 2026 · Kunčina Ves, Orlické hory</p>
-      <p class="footer-made" data-en="Made with love in the mountains" data-cs="Vytvořeno s láskou v horách">Made with love in the mountains</p>
+      <p class="footer-date">11. července 2026 · Kunčina Ves, Orlické hory</p>
+      <p class="footer-made">Vytvořeno s láskou v horách</p>
     </div>
   </footer>
 
   <!--
   ====================================================
-  EMAILJS SETUP INSTRUCTIONS
+  EMAILJS NASTAVENÍ
   ====================================================
-  1. Go to https://www.emailjs.com and create a FREE account.
-  2. Connect a Gmail service:
-     - Dashboard → Email Services → Add New Service → Gmail
-     - Name it "wedding_gmail" — note the Service ID (e.g. "service_xxxxxxx")
-  3. Create an email template:
-     - Dashboard → Email Templates → Create New Template
-     - Subject: "New RSVP from {{name}}"
-     - Body:
-         Name: {{name}}
-         Attending: {{attending}}
-         Guests: {{guests}}
-         Dietary / Message: {{message}}
-     - To Email: capekabcd@gmail.com
-     - Note the Template ID (e.g. "template_xxxxxxx")
-  4. Get your PUBLIC KEY:
-     - Account → API Keys → copy Public Key
-  5. Replace the placeholders in script.js:
-     - EMAILJS_PUBLIC_KEY  = "your_public_key"
-     - EMAILJS_SERVICE_ID  = "service_xxxxxxx"
-     - EMAILJS_TEMPLATE_ID = "template_xxxxxxx"
-  6. Uncomment the EmailJS SDK script below.
+  1. Vytvořte si bezplatný účet na https://www.emailjs.com
+  2. Dashboard → Email Services → Add New Service → Gmail
+     → Pojmenujte "wedding_gmail" → poznamenejte si Service ID
+  3. Dashboard → Email Templates → Create New Template
+     Předmět: Nové potvrzení od {{name}}
+     Tělo:
+       Jméno: {{name}}
+       Účast: {{attending}}
+       Počet hostů: {{guests}}
+       Vzkaz / Dieta: {{message}}
+     Na email: capekabcd@gmail.com
+     Poznamenejte si Template ID
+  4. Account → API Keys → zkopírujte Public Key
+  5. V script.js nahraďte:
+     EMAILJS_PUBLIC_KEY  = "váš_public_key"
+     EMAILJS_SERVICE_ID  = "service_xxxxxxx"
+     EMAILJS_TEMPLATE_ID = "template_xxxxxxx"
+  6. Odkomentujte EmailJS SDK script níže.
   ====================================================
   -->
   <!-- <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script> -->

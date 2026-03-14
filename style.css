@@ -5,7 +5,6 @@
 
 /* ---- FONTS ---- */
 @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@300;400;500&display=swap');
-
 /* ---- VARIABLES ---- */
 :root {
   /* Light (day) theme */
@@ -38,6 +37,7 @@
   /* Typography */
   --font-serif:    'Cormorant Garamond', Georgia, serif;
   --font-sans:     'Jost', 'Helvetica Neue', sans-serif;
+  --font-script:   'Mrs Saint Delafield', cursive;
 
   /* Layout */
   --max-w:         1100px;
@@ -159,7 +159,7 @@ body.dark .nav.scrolled {
   font-weight: 500;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: rgba(244,240,232,0.85);
+  color: rgba(45,42,36,0.85);
   position: relative;
   transition: color var(--transition);
 }
@@ -292,7 +292,7 @@ body.dark .dark-toggle .moon { display: block; }
   font-weight: 400;
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: rgba(255,255,255,0.75);
+  color: var(--fg-muted);
   text-shadow: 0 1px 8px rgba(0,0,0,0.3);
   animation: fadeUp 0.8s ease both;
 }
@@ -303,7 +303,7 @@ body.dark .hero-pre { color: rgba(200,210,195,0.7); }
   font-size: clamp(3.2rem, 9vw, 6.5rem);
   font-weight: 300;
   line-height: 1.05;
-  color: #fff;
+  color: var(--fg);  
   text-shadow: 0 2px 24px rgba(0,0,0,0.25);
   animation: fadeUp 0.9s 0.1s ease both;
   letter-spacing: 0.03em;
@@ -338,7 +338,7 @@ body.dark .hero-names { color: #e8f0e4; }
   font-weight: 300;
   letter-spacing: 0.15em;
   text-transform: uppercase;
-  color: rgba(255,255,255,0.8);
+  color: var(--fg-muted);
   text-shadow: 0 1px 8px rgba(0,0,0,0.25);
   animation: fadeUp 0.9s 0.25s ease both;
 }

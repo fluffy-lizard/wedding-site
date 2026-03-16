@@ -3,28 +3,9 @@
    Lukáš & Pája · 11. července 2026
    =================================================== */
 
-/* ===================================================
-   EMAILJS NASTAVENÍ
-   ---------------------------------------------------
-   1. Vytvořte si bezplatný účet na https://www.emailjs.com
-   2. Dashboard → Email Services → Add New Service → Gmail
-      → Pojmenujte "wedding_gmail" → poznamenejte si Service ID
-   3. Dashboard → Email Templates → Create New Template
-      Předmět:  Nové potvrzení od {{name}}
-      Tělo:
-        Jméno: {{name}}
-        Účast: {{attending}}
-        Počet hostů: {{guests}}
-        Vzkaz / Dieta: {{message}}
-      Na email: capekabcd@gmail.com
-      Poznamenejte si Template ID
-   4. Account → API Keys → zkopírujte Public Key
-   5. Nahraďte tři konstanty níže
-   6. V index.html odkomentujte EmailJS <script> tag
-   =================================================== */
-const EMAILJS_PUBLIC_KEY  = 'YOUR_PUBLIC_KEY';    // např. "aB1cD2eF3gH4"
-const EMAILJS_SERVICE_ID  = 'YOUR_SERVICE_ID';    // např. "service_abc123"
-const EMAILJS_TEMPLATE_ID = 'YOUR_TEMPLATE_ID';  // např. "template_xyz789"
+const EMAILJS_PUBLIC_KEY  = 'xr4cyuqJHYioPTdTn';    // např. "aB1cD2eF3gH4"
+const EMAILJS_SERVICE_ID  = 'service_g1shzho';    // např. "service_abc123"
+const EMAILJS_TEMPLATE_ID = 'template_x3jgcgg';  // např. "template_xyz789"
 
 /* ===================================================
    TMAVÝ REŽIM

@@ -259,7 +259,7 @@ body.dark .dark-toggle .moon { display: block; }
   align-items: center;
   justify-content: center;
   overflow: hidden;
-  padding: var(--nav-h) 24px 80px;
+  padding: var(--nav-h) max(24px, env(safe-area-inset-right)) 80px max(24px, env(safe-area-inset-left));
 }
 
 .hero-bg {
@@ -546,6 +546,8 @@ body.dark .countdown-num { color: #d8e8d0; }
    =================================================== */
 .section {
   padding: 100px 24px;
+  padding-left: max(24px, env(safe-area-inset-left));
+  padding-right: max(24px, env(safe-area-inset-right));
   position: relative;
 }
 
@@ -677,13 +679,14 @@ body.dark .countdown-num { color: #d8e8d0; }
 }
 
 .timeline-item {
+  display: -webkit-grid;
   display: grid;
   grid-template-columns: 80px 24px 1fr;
   gap: 0 20px;
   align-items: flex-start;
   padding: 28px 0;
   position: relative;
-  animation: fadeUp 0.6s ease both;
+  /* remove the animation line entirely */
 }
 
 .timeline-time {

@@ -3,9 +3,23 @@
    Lukáš & Pája · 11. července 2026
    =================================================== */
 
-const EMAILJS_PUBLIC_KEY  = 'xr4cyuqJHYioPTdTn';    // např. "aB1cD2eF3gH4"
-const EMAILJS_SERVICE_ID  = 'service_g1shzho';    // např. "service_abc123"
-const EMAILJS_TEMPLATE_ID = 'template_x3jgcgg';  // např. "template_xyz789"
+const EMAILJS_PUBLIC_KEY  = 'xr4cyuqJHYioPTdTn';
+const EMAILJS_SERVICE_ID  = 'service_g1shzho';
+const EMAILJS_TEMPLATE_ID = 'template_x3jgcgg';
+
+/* ===================================================
+   SMOOTH SCROLL POLYFILL (Safari iOS < 15.4)
+   =================================================== */
+function smoothScrollTo(targetId) {
+  const target = document.querySelector(targetId);
+  if (!target) return;
+  // Use native smooth scroll if supported, else instant
+  try {
+    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  } catch (e) {
+    target.scrollIntoView(true);
+  }
+}
 
 /* ===================================================
    TMAVÝ REŽIM
@@ -33,8 +47,15 @@ function initNav() {
     hamburger.setAttribute('aria-expanded', open);
   });
 
-  mobileMenu.querySelectorAll('a').forEach(a => {
-    a.addEventListener('click', () => {
+  // Fix anchor-link smooth scroll on iOS Safari
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', (e) => {
+      const href = a.getAttribute('href');
+      if (href && href.length > 1) {
+        e.preventDefault();
+        smoothScrollTo(href);
+      }
+      // Close mobile menu if open
       mobileMenu.classList.remove('open');
       hamburger.classList.remove('open');
       hamburger.setAttribute('aria-expanded', 'false');
@@ -125,6 +146,16 @@ function downloadICS() {
    RSVP FORMULÁŘ
    =================================================== */
 function initRSVP() {
+  // :has() fallback for older Safari — add/remove .checked class on radio labels
+  document.querySelectorAll('.radio-label input[type="radio"]').forEach(radio => {
+    radio.addEventListener('change', () => {
+      document.querySelectorAll('.radio-label').forEach(lbl => lbl.classList.remove('checked'));
+      if (radio.checked) {
+        radio.closest('.radio-label').classList.add('checked');
+      }
+    });
+  });
+
   document.getElementById('rsvpSubmit')?.addEventListener('click', handleRSVP);
 }
 
@@ -236,7 +267,10 @@ function initScrollReveal() {
    =================================================== */
 function initParallax() {
   const heroBg = document.querySelector('.hero-bg');
-  if (!heroBg || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  // Disable parallax on iOS/iPadOS — causes jank and battery drain
+  const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) ||
+    (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+  if (!heroBg || isIOS || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
   window.addEventListener('scroll', () => {
     if (window.scrollY < window.innerHeight) {
       heroBg.style.transform = `translateY(${window.scrollY * 0.3}px)`;

@@ -81,6 +81,9 @@ body.dark {
 html {
   scroll-behavior: smooth;
   font-size: 16px;
+  /* Prevent elastic overscroll showing white background on iOS */
+  background: var(--bg);
+  height: -webkit-fill-available;
 }
 
 body {
@@ -90,7 +93,10 @@ body {
   font-weight: 300;
   line-height: 1.7;
   overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
   transition: background var(--transition), color var(--transition);
+  /* Prevent Safari text size adjustment on rotation */
+  -webkit-text-size-adjust: 100%;
 }
 
 img { max-width: 100%; display: block; }
@@ -114,7 +120,10 @@ button { cursor: pointer; border: none; background: none; font: inherit; }
   height: var(--nav-h);
   z-index: 100;
   background: transparent;
-  transition: background var(--transition), backdrop-filter var(--transition), box-shadow var(--transition);
+  /* Support iOS safe area at top */
+  padding-top: env(safe-area-inset-top);
+  height: calc(var(--nav-h) + env(safe-area-inset-top));
+  transition: background var(--transition), -webkit-backdrop-filter var(--transition), backdrop-filter var(--transition), box-shadow var(--transition);
 }
 .nav.scrolled {
   background: rgba(244,240,232,0.92);
@@ -254,9 +263,16 @@ body.dark .dark-toggle .moon { display: block; }
    =================================================== */
 .hero {
   min-height: 100vh;
+  min-height: -webkit-fill-available;
   position: relative;
+  display: -webkit-box;
+  display: -webkit-flex;
   display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
   align-items: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
   justify-content: center;
   overflow: hidden;
   padding: var(--nav-h) max(24px, env(safe-area-inset-right)) 80px max(24px, env(safe-area-inset-left));
@@ -279,8 +295,15 @@ body.dark .dark-toggle .moon { display: block; }
   text-align: center;
   max-width: 700px;
   width: 100%;
+  display: -webkit-box;
+  display: -webkit-flex;
   display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
   flex-direction: column;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
   align-items: center;
   gap: 20px;
   padding-top: 40px;
@@ -350,7 +373,11 @@ body.dark .hero-names { color: #e8f0e4; }
   overflow: hidden;
   box-shadow: 0 20px 60px rgba(0,0,0,0.3), 0 0 0 6px rgba(255,255,255,0.08);
   animation: fadeUp 0.9s 0.3s ease both;
+  -webkit-backdrop-filter: blur(2px);
   backdrop-filter: blur(2px);
+  /* Fix Safari overflow:hidden + border-radius clipping */
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
 }
 .hero-photo-inner { display: block; }
 .hero-photo-inner svg { width: 100%; height: auto; display: block; }
@@ -648,6 +675,9 @@ body.dark .countdown-num { color: #d8e8d0; }
   border: 1px solid var(--border);
   box-shadow: 0 8px 32px var(--shadow);
   transition: transform var(--transition), box-shadow var(--transition);
+  /* Fix Safari overflow:hidden + border-radius clipping */
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
 }
 .about-photo:hover {
   transform: translateY(-4px);
@@ -811,8 +841,16 @@ body.dark .countdown-num { color: #d8e8d0; }
   overflow: hidden;
   box-shadow: 0 12px 40px var(--shadow-lg);
   border: 1px solid var(--border);
+  display: -webkit-box;
+  display: -webkit-flex;
   display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
   flex-direction: column;
+  /* Fix Safari overflow:hidden + border-radius clipping */
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
 }
 .map-wrapper iframe { display: block; }
 .map-directions {
@@ -877,12 +915,14 @@ body.dark .countdown-num { color: #d8e8d0; }
   border: 1px solid var(--border);
   border-radius: var(--radius);
   font-family: var(--font-sans);
-  font-size: 0.95rem;
+  font-size: 1rem; /* must be >= 16px to prevent iOS Safari auto-zoom */
   font-weight: 300;
   color: var(--fg);
   transition: border-color var(--transition), box-shadow var(--transition);
   outline: none;
   -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
 }
 .form-group input:focus,
 .form-group textarea:focus {
@@ -920,7 +960,8 @@ body.dark .countdown-num { color: #d8e8d0; }
   letter-spacing: 0;
   text-transform: none;
 }
-.radio-label:has(input:checked) {
+.radio-label:has(input:checked),
+.radio-label.checked {
   border-color: var(--accent);
   background: rgba(74,103,65,0.06);
 }

@@ -265,18 +265,19 @@ body.dark .dark-toggle .moon { display: block; }
   min-height: 100vh;
   min-height: -webkit-fill-available;
   position: relative;
-  display: -webkit-box;
-  display: -webkit-flex;
   display: flex;
-  -webkit-box-align: center;
-  -webkit-align-items: center;
   align-items: center;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
   justify-content: center;
   overflow: hidden;
-  padding: var(--nav-h) max(24px, env(safe-area-inset-right)) 80px max(24px, env(safe-area-inset-left));
+
+  /* 1) Fallback pro všechny prohlížeče */
+  padding: var(--nav-h) 24px 80px 24px;
+
+  /* 2) Teprve potom iOS-safe-area override */
+  padding-left: max(24px, env(safe-area-inset-left));
+  padding-right: max(24px, env(safe-area-inset-right));
 }
+
 
 .hero-bg {
   position: absolute;

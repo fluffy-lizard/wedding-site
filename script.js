@@ -76,7 +76,8 @@ function initNav() {
    =================================================== */
 function initCountdown() {
   // Svatba: 11. července 2026 v 11:00 SEČ (CEST = UTC+2)
-  const weddingDate = new Date(2026, 6, 11, 11, 0, 0); // Month is 0-based
+  // Use UTC to avoid timezone issues: July 11, 2026 11:00 CEST = July 11, 2026 09:00 UTC
+  const weddingDate = new Date(Date.UTC(2026, 6, 11, 9, 0, 0)); // Month is 0-based
 
   const daysEl  = document.getElementById('cd-days');
   const hoursEl = document.getElementById('cd-hours');

@@ -693,7 +693,11 @@ body.dark .countdown-num { color: #d8e8d0; }
    =================================================== */
 .timeline {
   max-width: 700px;
+  display: -webkit-box;
+  display: -webkit-flex;
   display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
   flex-direction: column;
   gap: 0;
   position: relative;
@@ -706,6 +710,8 @@ body.dark .countdown-num { color: #d8e8d0; }
   top: 0; bottom: 0;
   width: 1px;
   background: var(--border);
+  /* Ensure visibility on iOS Safari */
+  z-index: 0;
 }
 
 .timeline-item {
@@ -718,7 +724,8 @@ body.dark .countdown-num { color: #d8e8d0; }
   gap: 20px;
   padding: 28px 0;
   position: relative;
-  /* remove the animation line entirely */
+  /* Ensure visibility on iOS Safari */
+  min-height: 60px;
 }
 
 .timeline-time {
@@ -744,8 +751,12 @@ body.dark .countdown-num { color: #d8e8d0; }
 }
 
 .timeline-dot {
+  display: -webkit-box;
+  display: -webkit-flex;
   display: flex;
+  -webkit-box-pack: center;
   justify-content: center;
+  -webkit-box-align: start;
   align-items: flex-start;
   padding-top: 4px;
   position: relative;
@@ -758,6 +769,9 @@ body.dark .countdown-num { color: #d8e8d0; }
   color: var(--accent);
   background: var(--bg-alt);
   border-radius: 50%;
+  /* Ensure SVG renders properly on iOS */
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
 }
 .tbd .timeline-dot svg { color: var(--fg-subtle); }
 
@@ -1139,7 +1153,9 @@ body.dark .countdown-num { color: #d8e8d0; }
 @media (max-width: 600px) {
   :root { --nav-h: 56px; }
 
-  .section { padding: 70px 20px; }
+  .section { 
+    padding: 70px max(20px, env(safe-area-inset-right)) 70px max(20px, env(safe-area-inset-left)); 
+  }
 
   .hero-names { font-size: clamp(2.6rem, 14vw, 4rem); }
   .hero-cta { flex-direction: column; align-items: center; }

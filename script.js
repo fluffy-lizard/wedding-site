@@ -76,7 +76,7 @@ function initNav() {
    =================================================== */
 function initCountdown() {
   // Svatba: 11. července 2026 v 11:00 SEČ (CEST = UTC+2)
-  const weddingDate = new Date('2026-07-11T09:00:00Z');
+  const weddingDate = new Date(2026, 6, 11, 11, 0, 0); // Month is 0-based
 
   const daysEl  = document.getElementById('cd-days');
   const hoursEl = document.getElementById('cd-hours');
@@ -86,7 +86,8 @@ function initCountdown() {
   function pad(n) { return String(Math.max(0, n)).padStart(2, '0'); }
 
   function tick() {
-    const diff = weddingDate - new Date();
+    const now = new Date();
+    const diff = weddingDate - now;
     if (diff <= 0) {
       [daysEl, hoursEl, minsEl, secsEl].forEach(el => el.textContent = '00');
       return;
@@ -237,7 +238,7 @@ function initFAQ() {
 function initScrollReveal() {
   const targets = document.querySelectorAll(
     '.section-label, .section-title, .about-text, .about-photos, ' +
-    '.timeline-item, .info-card, .faq-item, .rsvp-form-wrap, ' +
+    '.info-card, .faq-item, .rsvp-form-wrap, ' +
     '.rsvp-subtitle, .map-wrapper'
   );
   targets.forEach(el => el.classList.add('reveal'));

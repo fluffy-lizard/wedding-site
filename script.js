@@ -122,9 +122,7 @@ function downloadICS() {
     'DTEND;TZID=Europe/Prague:20260711T230000',
     'SUMMARY:Svatba Lukáš & Pája 💍',
     'DESCRIPTION:Obřad v 11:00 hodin\\n' +
-      'Oběd ve 12:00.\\n' +
-      'Parkujte na přilehlé louce.\\n' +
-      'Areál uvolněte do neděle 14:00.',
+      'Prosímě doražte včas\\n',
     'LOCATION:Škola na Vsi\\, Kunčina Ves 61\\, 516 01 Zdobnice\\, Orlické hory',
     'GEO:50.2236725;16.3832923',
     'STATUS:CONFIRMED',

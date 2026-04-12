@@ -1066,6 +1066,14 @@ body.dark .countdown-num { color: #d8e8d0; }
 }
 .faq-a[hidden] { display: none; }
 
+.faq-palette {
+  display: block;
+  margin-top: 16px;
+  max-width: 480px;
+  width: 100%;
+  border-radius: 8px;
+}
+
 /* ===================================================
    FOOTER
    =================================================== */
